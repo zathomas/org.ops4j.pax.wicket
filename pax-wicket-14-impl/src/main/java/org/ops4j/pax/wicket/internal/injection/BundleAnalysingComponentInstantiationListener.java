@@ -15,14 +15,7 @@
  */
 package org.ops4j.pax.wicket.internal.injection;
 
-import java.lang.reflect.Field;
-import java.net.URL;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
-
 import net.sf.cglib.proxy.Factory;
-
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.ops4j.pax.wicket.internal.OverwriteProxy;
 import org.ops4j.pax.wicket.internal.injection.blueprint.BlueprintBeanProxyTargetLocator;
@@ -32,6 +25,12 @@ import org.ops4j.pax.wicket.util.proxy.LazyInitProxyFactory;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Field;
+import java.net.URL;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
 
 public class BundleAnalysingComponentInstantiationListener extends AbstractPaxWicketInjector {
 

@@ -15,20 +15,21 @@
  */
 package org.ops4j.pax.wicket.internal;
 
-import static org.ops4j.lang.NullArgumentException.validateNotNull;
+import org.apache.wicket.IPageFactory;
+import org.apache.wicket.Page;
+import org.apache.wicket.PageParameters;
+import org.apache.wicket.WicketRuntimeException;
+import org.ops4j.pax.wicket.api.PageFactory;
+import org.osgi.framework.BundleContext;
+import org.osgi.util.tracker.ServiceTracker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
-import org.apache.wicket.IPageFactory;
-import org.apache.wicket.Page;
-import org.apache.wicket.PageParameters;
-import org.apache.wicket.WicketRuntimeException;
-import org.osgi.framework.BundleContext;
-import org.osgi.util.tracker.ServiceTracker;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.ops4j.lang.NullArgumentException.validateNotNull;
 
 public final class PaxWicketPageFactory implements IPageFactory {
 

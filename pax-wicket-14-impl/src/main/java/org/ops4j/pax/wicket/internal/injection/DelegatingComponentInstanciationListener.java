@@ -15,14 +15,6 @@
  */
 package org.ops4j.pax.wicket.internal.injection;
 
-import static org.ops4j.lang.NullArgumentException.validateNotEmpty;
-import static org.ops4j.lang.NullArgumentException.validateNotNull;
-import static org.ops4j.pax.wicket.api.Constants.APPLICATION_NAME;
-import static org.osgi.framework.Constants.OBJECTCLASS;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.ops4j.pax.wicket.api.InjectorHolder;
 import org.ops4j.pax.wicket.api.NoBeanAvailableForInjectionException;
 import org.ops4j.pax.wicket.api.PaxWicketInjector;
@@ -33,6 +25,14 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.ops4j.lang.NullArgumentException.validateNotEmpty;
+import static org.ops4j.lang.NullArgumentException.validateNotNull;
+import static org.ops4j.pax.wicket.api.Constants.APPLICATION_NAME;
+import static org.osgi.framework.Constants.OBJECTCLASS;
 
 public final class DelegatingComponentInstanciationListener extends AbstractPaxWicketInjector {
 

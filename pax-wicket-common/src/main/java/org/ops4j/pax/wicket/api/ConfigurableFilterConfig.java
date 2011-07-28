@@ -15,9 +15,8 @@
  */
 package org.ops4j.pax.wicket.api;
 
-import java.util.Map;
-
 import javax.servlet.FilterConfig;
+import java.util.Map;
 
 public interface ConfigurableFilterConfig extends FilterConfig {
 
