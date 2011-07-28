@@ -2,7 +2,7 @@
 *.classpath
 *.project
 *.settings
-wicket.iws
+*.iws
 *.iml
 *.ipr
 *build.properties

@@ -66,6 +66,8 @@
     <aries.proxy.version>0.3</aries.proxy.version>
     <aries.util.version>0.3</aries.util.version>
     <aries.blueprint.range>[0.3,1.0)</aries.blueprint.range>
+    <ops4j-base-lang.version>1.2.2</ops4j-base-lang.version>
+    <org.osgi.version>4.2.0</org.osgi.version>
   </properties>
 
   <build>
@@ -172,11 +174,17 @@
   </reporting>
 
   <modules>
-    <module>service</module>
     <module>test</module>
     <module>samples</module>
     <module>features</module>
     <module>itests</module>
+
+    <!-- new modules -->
+    <module>pax-wicket-common</module>
+    <module>pax-wicket-14-impl</module>
+    <module>pax-wicket-15-impl</module>
+    <module>pax-wicket-aries</module>
+    <module>pax-wicket-spring</module>
   </modules>
 
   <dependencyManagement>
@@ -184,7 +192,7 @@
       <!-- Internal Dependencies -->
       <dependency>
         <groupId>org.ops4j.pax.wicket</groupId>
-        <artifactId>org.ops4j.pax.wicket.service</artifactId>
+        <artifactId>org.ops4j.pax.wicket.common</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -246,10 +254,16 @@
         <artifactId>pax-exam-container-default</artifactId>
         <version>${pax.exam.version}</version>
       </dependency>
+        
       <dependency>
         <groupId>org.ops4j.pax.swissbox</groupId>
         <artifactId>pax-swissbox-tinybundles</artifactId>
         <version>1.3.1</version>
+      </dependency>
+      <dependency>
+          <groupId>org.ops4j.base</groupId>
+          <artifactId>ops4j-base-lang</artifactId>
+          <version>${ops4j-base-lang.version}</version>
       </dependency>
       <dependency>
         <groupId>javax.portlet</groupId>
@@ -259,13 +273,13 @@
       <dependency>
         <groupId>org.osgi</groupId>
         <artifactId>org.osgi.compendium</artifactId>
-        <version>4.2.0</version>
+        <version>${org.osgi.version}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.osgi</groupId>
         <artifactId>org.osgi.core</artifactId>
-        <version>4.2.0</version>
+        <version>${org.osgi.version}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
