@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.impl14.internal;
+package org.ops4j.pax.wicket.internal;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -27,6 +27,7 @@ import org.apache.wicket.protocol.http.IWebApplicationFactory;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WicketFilter;
 import org.ops4j.pax.wicket.impl14.impl14.api.Constants;
+import org.ops4j.pax.wicket.impl14.internal.PageMounterTracker;
 import org.ops4j.pax.wicket.internal.injection.ComponentInstantiationListenerFacade;
 import org.ops4j.pax.wicket.internal.injection.DelegatingComponentInstanciationListener;
 import org.osgi.framework.BundleContext;

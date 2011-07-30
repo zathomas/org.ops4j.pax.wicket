@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.impl14.internal;
+package org.ops4j.pax.wicket.internal;
 
 import static org.ops4j.lang.NullArgumentException.validateNotEmpty;
 import static org.ops4j.lang.NullArgumentException.validateNotNull;
-import static org.ops4j.pax.wicket.impl14.impl14.api.Constants.APPLICATION_NAME;
 import static org.osgi.framework.Constants.OBJECTCLASS;
 
 import java.net.URL;
@@ -27,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.wicket.application.IClassResolver;
+import org.ops4j.pax.wicket.api.Constants;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;
 import org.osgi.framework.InvalidSyntaxException;
@@ -131,7 +131,7 @@ public final class DelegatingClassResolver implements IClassResolver {
 
         @Override
         public final void modifiedService(ServiceReference reference, Object service) {
-            Object objAppName = reference.getProperty(APPLICATION_NAME);
+            Object objAppName = reference.getProperty(Constants.APPLICATION_NAME);
             if (objAppName != null) {
                 Class<?> nameClass = objAppName.getClass();
                 if (String.class.isAssignableFrom(nameClass)) {
@@ -164,12 +164,13 @@ public final class DelegatingClassResolver implements IClassResolver {
     }
 
     private static Filter createFilter(BundleContext context, String applicationName) {
-        String filterStr = "(&(" + OBJECTCLASS + "=" + IClassResolver.class.getName() + ")(" + APPLICATION_NAME + "="
-                + applicationName + "))";
+        String filterStr =
+            "(&(" + OBJECTCLASS + "=" + IClassResolver.class.getName() + ")(" + Constants.APPLICATION_NAME + "="
+                    + applicationName + "))";
         try {
             return context.createFilter(filterStr);
         } catch (InvalidSyntaxException e) {
-            String message = APPLICATION_NAME + "[" + applicationName + "] has an invalid format. ";
+            String message = Constants.APPLICATION_NAME + "[" + applicationName + "] has an invalid format. ";
             throw new IllegalArgumentException(message);
         }
     }

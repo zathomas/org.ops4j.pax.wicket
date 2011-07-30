@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.impl14.internal;
+package org.ops4j.pax.wicket.internal;
 
 import static java.lang.reflect.Proxy.isProxyClass;
 import static java.lang.reflect.Proxy.newProxyInstance;

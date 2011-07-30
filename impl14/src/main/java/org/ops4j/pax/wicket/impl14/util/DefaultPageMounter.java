@@ -15,10 +15,6 @@
  */
 package org.ops4j.pax.wicket.impl14.util;
 
-import static org.ops4j.lang.NullArgumentException.validateNotEmpty;
-import static org.ops4j.lang.NullArgumentException.validateNotNull;
-import static org.ops4j.pax.wicket.impl14.impl14.api.Constants.APPLICATION_NAME;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Dictionary;
