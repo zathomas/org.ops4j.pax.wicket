@@ -16,9 +16,7 @@
 package org.ops4j.pax.wicket.internal.injection;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.List;
 
 import org.apache.wicket.Page;
 import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
@@ -29,7 +27,9 @@ public class BundleScanningMountPointProviderDecorator implements InjectionAware
 
     private BundleContext bundleContext;
     private String applicationName;
-    private List<DefaultPageMounter> mountPointRegistrations = new ArrayList<DefaultPageMounter>();
+
+    // TODO: [PAXWICKET-255] reintroduce
+    // private List<DefaultPageMounter> mountPointRegistrations = new ArrayList<DefaultPageMounter>();
 
     public void setBundleContext(BundleContext bundleContext) {
         this.bundleContext = bundleContext;
@@ -53,19 +53,21 @@ public class BundleScanningMountPointProviderDecorator implements InjectionAware
             Class<? extends Page> pageClass = (Class<? extends Page>) candidateClass;
             PaxWicketMountPoint mountPoint = pageClass.getAnnotation(PaxWicketMountPoint.class);
             if (mountPoint != null) {
-                DefaultPageMounter mountPointRegistration = new DefaultPageMounter(applicationName, bundleContext);
-                mountPointRegistration.addMountPoint(mountPoint.mountPoint(), pageClass);
-                mountPointRegistration.register();
-                mountPointRegistrations.add(mountPointRegistration);
+                // TODO: [PAXWICKET-255] reintroduce
+                // DefaultPageMounter mountPointRegistration = new DefaultPageMounter(applicationName, bundleContext);
+                // mountPointRegistration.addMountPoint(mountPoint.mountPoint(), pageClass);
+                // mountPointRegistration.register();
+                // mountPointRegistrations.add(mountPointRegistration);
             }
         }
     }
 
     public void stop() throws Exception {
-        for (DefaultPageMounter pageMounter : mountPointRegistrations) {
-            pageMounter.dispose();
-        }
-        mountPointRegistrations.clear();
+        // TODO: [PAXWICKET-255] reintroduce
+        // for (DefaultPageMounter pageMounter : mountPointRegistrations) {
+        // pageMounter.dispose();
+        // }
+        // mountPointRegistrations.clear();
     }
 
 }

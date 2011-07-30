@@ -23,7 +23,6 @@ import java.util.Set;
 import org.apache.wicket.protocol.http.IWebApplicationFactory;
 import org.ops4j.pax.wicket.api.Constants;
 import org.ops4j.pax.wicket.internal.BundleDelegatingClassResolver;
-import org.ops4j.pax.wicket.internal.BundleDelegatingPageMounter;
 import org.ops4j.pax.wicket.internal.injection.BundleDelegatingComponentInstanciationListener;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -33,16 +32,16 @@ import org.osgi.util.tracker.ServiceTracker;
 /**
  * Right now it listens on all pax-wicket applications. In addition it is "feeded" by a bundleListeners with all bundles
  * implementing org.apache.wicket.
- *
+ * 
  * If a service is added a new BundleDelegatingVersion of the classloaders, injection handlers and mount point listeners
  * is added to the service reference. Initally all currently registered bundles are checked then if they should be added
  * into the specific lifecycle for a specific application.
- *
+ * 
  * If an application get updated the check if bundles are still valid for this package are repeated.
- *
+ * 
  * Every time a bundle is added it is evaluated to which BundleDelegatingServices this bundle should be added (and is
  * added to the matching services).
- *
+ * 
  * Everytime a bundle is removed it is simply removed from all applications from all services.
  */
 public class BundleDelegatingExtensionTracker extends ServiceTracker {
@@ -53,8 +52,10 @@ public class BundleDelegatingExtensionTracker extends ServiceTracker {
         new HashMap<ServiceReference, BundleDelegatingClassResolver>();
     private Map<ServiceReference, BundleDelegatingComponentInstanciationListener> componentInstanciationListener =
         new HashMap<ServiceReference, BundleDelegatingComponentInstanciationListener>();
-    private Map<ServiceReference, BundleDelegatingPageMounter> pageMounter =
-        new HashMap<ServiceReference, BundleDelegatingPageMounter>();
+
+    // TODO: [PAXWICKET-255] reintroduce
+    // private Map<ServiceReference, BundleDelegatingPageMounter> pageMounter =
+    // new HashMap<ServiceReference, BundleDelegatingPageMounter>();
 
     public BundleDelegatingExtensionTracker(BundleContext context) {
         super(context, IWebApplicationFactory.class.getName(), null);
@@ -95,8 +96,9 @@ public class BundleDelegatingExtensionTracker extends ServiceTracker {
         componentInstanciationListener.put(reference, new BundleDelegatingComponentInstanciationListener(
             paxWicketBundleContext, applicationName));
         componentInstanciationListener.get(reference).start();
-        pageMounter.put(reference, new BundleDelegatingPageMounter(applicationName, paxWicketBundleContext));
-        pageMounter.get(reference).start();
+        // TODO: [PAXWICKET-255] reintroduce
+        // pageMounter.put(reference, new BundleDelegatingPageMounter(applicationName, paxWicketBundleContext));
+        // pageMounter.get(reference).start();
     }
 
     private void removeServicesForServiceReference(ServiceReference reference) {
@@ -104,8 +106,9 @@ public class BundleDelegatingExtensionTracker extends ServiceTracker {
         classResolvers.remove(reference);
         componentInstanciationListener.get(reference).stop();
         componentInstanciationListener.remove(reference);
-        pageMounter.get(reference).stop();
-        pageMounter.remove(reference);
+        // TODO: [PAXWICKET-255] reintroduce
+        // pageMounter.get(reference).stop();
+        // pageMounter.remove(reference);
     }
 
     private void reevaluateAllBundles(ServiceReference reference) {
@@ -128,7 +131,8 @@ public class BundleDelegatingExtensionTracker extends ServiceTracker {
     private void addBundleToServicesReference(Bundle bundle, ServiceReference reference) {
         classResolvers.get(reference).addBundle(bundle);
         componentInstanciationListener.get(reference).addBundle(bundle);
-        pageMounter.get(reference).addBundle(bundle);
+        // TODO: [PAXWICKET-255] reintroduce
+        // pageMounter.get(reference).addBundle(bundle);
     }
 
     public void removeRelevantBundle(Bundle bundle) {
@@ -143,7 +147,8 @@ public class BundleDelegatingExtensionTracker extends ServiceTracker {
         for (ServiceReference reference : services) {
             classResolvers.get(reference).removeBundle(bundle);
             componentInstanciationListener.get(reference).removeBundle(bundle);
-            pageMounter.get(reference).removeBundle(bundle);
+            // TODO: [PAXWICKET-255] reintroduce
+            // pageMounter.get(reference).removeBundle(bundle);
         }
     }
 

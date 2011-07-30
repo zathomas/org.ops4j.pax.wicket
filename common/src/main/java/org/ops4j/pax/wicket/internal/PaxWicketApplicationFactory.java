@@ -26,8 +26,7 @@ import net.sf.cglib.proxy.MethodProxy;
 import org.apache.wicket.protocol.http.IWebApplicationFactory;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WicketFilter;
-import org.ops4j.pax.wicket.impl14.impl14.api.Constants;
-import org.ops4j.pax.wicket.impl14.internal.PageMounterTracker;
+import org.ops4j.pax.wicket.api.Constants;
 import org.ops4j.pax.wicket.internal.injection.ComponentInstantiationListenerFacade;
 import org.ops4j.pax.wicket.internal.injection.DelegatingComponentInstanciationListener;
 import org.osgi.framework.BundleContext;
@@ -100,7 +99,9 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
         private PaxWicketPageFactory pageFactory;
         private DelegatingClassResolver delegatingClassResolver;
         private DelegatingComponentInstanciationListener delegatingComponentInstanciationListener;
-        private PageMounterTracker mounterTracker;
+
+        // TODO: [PAXWICKET-255] reintroduce
+        // private PageMounterTracker mounterTracker;
 
         public Object intercept(Object object, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
             if (isFinalizeMethod(method)) {
@@ -123,7 +124,7 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
 
         /**
          * Checks if the method is derived from Object.equals()
-         *
+         * 
          * @param method method being tested
          * @return true if the method is derived from Object.equals(), false otherwise
          */
@@ -134,7 +135,7 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
 
         /**
          * Checks if the method is derived from Object.hashCode()
-         *
+         * 
          * @param method method being tested
          * @return true if the method is defined from Object.hashCode(), false otherwise
          */
@@ -145,7 +146,7 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
 
         /**
          * Checks if the method is derived from Object.toString()
-         *
+         * 
          * @param method method being tested
          * @return true if the method is defined from Object.toString(), false otherwise
          */
@@ -156,7 +157,7 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
 
         /**
          * Checks if the method is derived from Object.finalize()
-         *
+         * 
          * @param method method being tested
          * @return true if the method is defined from Object.finalize(), false otherwise
          */
@@ -191,15 +192,17 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
             application.getApplicationSettings().setClassResolver(delegatingClassResolver);
             application.getSessionSettings().setPageFactory(pageFactory);
             // TODO [PAXWICKET-228] What should happen if two are created?
-            mounterTracker = new PageMounterTracker(bundleContext, application, getApplicationName());
-            mounterTracker.open();
+            // TODO: [PAXWICKET-255] reintroduce
+            // mounterTracker = new PageMounterTracker(bundleContext, application, getApplicationName());
+            // mounterTracker.open();
         }
 
         private void handleOnDestroy() {
             pageFactory.dispose();
             delegatingClassResolver.dispose();
             delegatingComponentInstanciationListener.dispose();
-            mounterTracker.close();
+            // TODO: [PAXWICKET-255] reintroduce
+            // mounterTracker.close();
             filterDelegator.dispose();
         }
 
