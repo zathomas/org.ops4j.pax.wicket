@@ -13,25 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.impl14.internal.injection;
-
-import net.sf.cglib.proxy.Factory;
-
-import org.ops4j.pax.wicket.impl14.impl14.api.PaxWicketBean;
-import org.ops4j.pax.wicket.impl14.impl14.internal.OverwriteProxy;
-import org.ops4j.pax.wicket.impl14.impl14.internal.injection.blueprint.BlueprintBeanProxyTargetLocator;
-import org.ops4j.pax.wicket.impl14.impl14.internal.injection.spring.SpringBeanProxyTargetLocator;
-import org.ops4j.pax.wicket.impl14.impl14.util.proxy.IProxyTargetLocator;
-import org.ops4j.pax.wicket.impl14.util.proxy.LazyInitProxyFactory;
-import org.osgi.framework.BundleContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package org.ops4j.pax.wicket.internal.injection;
 
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
+
+import net.sf.cglib.proxy.Factory;
+
+import org.ops4j.pax.wicket.api.PaxWicketBean;
+import org.ops4j.pax.wicket.internal.OverwriteProxy;
+import org.ops4j.pax.wicket.util.proxy.IProxyTargetLocator;
+import org.ops4j.pax.wicket.util.proxy.LazyInitProxyFactory;
+import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BundleAnalysingComponentInstantiationListener extends AbstractPaxWicketInjector {
 

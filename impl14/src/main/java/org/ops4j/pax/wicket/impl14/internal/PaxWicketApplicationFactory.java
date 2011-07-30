@@ -27,8 +27,8 @@ import org.apache.wicket.protocol.http.IWebApplicationFactory;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WicketFilter;
 import org.ops4j.pax.wicket.impl14.impl14.api.Constants;
-import org.ops4j.pax.wicket.impl14.internal.injection.ComponentInstantiationListenerFacade;
-import org.ops4j.pax.wicket.impl14.internal.injection.DelegatingComponentInstanciationListener;
+import org.ops4j.pax.wicket.internal.injection.ComponentInstantiationListenerFacade;
+import org.ops4j.pax.wicket.internal.injection.DelegatingComponentInstanciationListener;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 

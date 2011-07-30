@@ -20,7 +20,7 @@ import org.apache.wicket.markup.MarkupStream;
 import org.junit.Before;
 import org.junit.Test;
 import org.ops4j.pax.wicket.impl14.impl14.api.PaxWicketBean;
-import org.ops4j.pax.wicket.impl14.internal.injection.AbstractPaxWicketInjector;
+import org.ops4j.pax.wicket.internal.injection.AbstractPaxWicketInjector;
 
 import java.lang.reflect.Field;
 import java.util.List;

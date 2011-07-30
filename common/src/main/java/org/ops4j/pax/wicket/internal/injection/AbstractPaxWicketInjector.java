@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.impl14.internal.injection;
+package org.ops4j.pax.wicket.internal.injection;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -25,12 +25,11 @@ import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.Page;
 import org.apache.wicket.Session;
-import org.apache.wicket.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.protocol.http.WebSession;
-import org.ops4j.pax.wicket.impl14.impl14.api.PaxWicketBean;
-import org.ops4j.pax.wicket.impl14.impl14.api.PaxWicketInjector;
+import org.ops4j.pax.wicket.api.PaxWicketBean;
+import org.ops4j.pax.wicket.api.PaxWicketInjector;
 
 public abstract class AbstractPaxWicketInjector implements PaxWicketInjector {
 
@@ -52,7 +51,7 @@ public abstract class AbstractPaxWicketInjector implements PaxWicketInjector {
     protected boolean isBoundaryClass(Class<?> clazz) {
         if (clazz.equals(WebPage.class) || clazz.equals(Page.class) || clazz.equals(Panel.class)
                 || clazz.equals(MarkupContainer.class) || clazz.equals(Component.class)
-                || clazz.equals(AuthenticatedWebSession.class) || clazz.equals(WebSession.class)
+                || clazz.equals(WebSession.class)
                 || clazz.equals(Session.class) || clazz.equals(Object.class)) {
             return true;
         }

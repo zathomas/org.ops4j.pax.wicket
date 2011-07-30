@@ -21,7 +21,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Test;
-import org.ops4j.pax.wicket.impl14.api.InjectorHolder;
+import org.ops4j.pax.wicket.api.InjectorHolder;
 
 public class InjectorHolderTest {
 

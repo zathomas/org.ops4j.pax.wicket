@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.impl14.api;
+package org.ops4j.pax.wicket.api;
 
 import java.util.HashMap;
 import java.util.Map;

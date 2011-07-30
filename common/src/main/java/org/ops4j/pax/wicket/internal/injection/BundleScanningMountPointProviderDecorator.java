@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.impl14.internal.injection;
+package org.ops4j.pax.wicket.internal.injection;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,8 +21,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 import org.apache.wicket.Page;
-import org.ops4j.pax.wicket.impl14.impl14.api.PaxWicketMountPoint;
-import org.ops4j.pax.wicket.impl14.util.DefaultPageMounter;
+import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
