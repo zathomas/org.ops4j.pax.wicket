@@ -174,11 +174,11 @@
   </reporting>
 
   <modules>
-    <module>pax-wicket-common</module>
-    <module>pax-wicket-14-impl</module>
-    <module>pax-wicket-15-impl</module>
-    <module>pax-wicket-aries</module>
-    <module>pax-wicket-spring</module>
+    <module>common</module>
+    <module>impl14</module>
+    <module>impl15</module>
+    <module>aries</module>
+    <module>spring</module>
     <module>test</module>
     <module>samples</module>
     <module>features</module>
