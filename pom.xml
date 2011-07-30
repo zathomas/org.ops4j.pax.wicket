@@ -174,17 +174,15 @@
   </reporting>
 
   <modules>
-    <module>test</module>
-    <module>samples</module>
-    <module>features</module>
-    <module>itests</module>
-
-    <!-- new modules -->
     <module>pax-wicket-common</module>
     <module>pax-wicket-14-impl</module>
     <module>pax-wicket-15-impl</module>
     <module>pax-wicket-aries</module>
     <module>pax-wicket-spring</module>
+    <module>test</module>
+    <module>samples</module>
+    <module>features</module>
+    <module>itests</module>
   </modules>
 
   <dependencyManagement>
