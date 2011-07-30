@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Copyright 2011 OPS4J
-
-  Licensed  under the  Apache License,  Version 2.0  (the "License");
-  you may not use  this file  except in  compliance with the License.
-  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed  under the  License is distributed on an "AS IS" BASIS,
-  WITHOUT  WARRANTIES OR CONDITIONS  OF ANY KIND, either  express  or
-  implied.
-
-  See the License for the specific language governing permissions and
-  limitations under the License.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <parent>
     <groupId>org.ops4j.pax.wicket</groupId>
@@ -56,10 +40,17 @@
           <instructions>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Private-Package></Private-Package>
-            <Bundle-Activator>
-              org.ops4j.pax.wicket.internal.Activator
-            </Bundle-Activator>
-            <Import-Package></Import-Package>
+            <Import-Package>
+              net.sf.cglib.proxy;version="${cglib.range}";resolution:=optional,
+              net.sf.cglib.core;version="${cglib.range}";resolution:=optional,
+              net.sf.cglib.reflect;version="${cglib.range}";resolution:=optional,
+              org.xml.sax,
+              org.w3c.dom,
+              org.apache.aries.blueprint.*;version="${aries.blueprint.range}";resolution:=optional,
+              org.osgi.service.blueprint;resolution:=optional,
+              org.osgi.service.blueprint.container;resolution:=optional,
+              org.osgi.service.blueprint.reflect;resolution:=optional,
+            </Import-Package>
             <Export-Package></Export-Package>
             <Bundle-ClassPath>
               .
@@ -69,4 +60,32 @@
       </plugin>
     </plugins>
   </build>
+
+  <dependencies>
+  <dependency>
+    <groupId>org.ops4j.pax.wicket</groupId>
+    <artifactId>org.ops4j.pax.wicket.common</artifactId>
+  </dependency>
+  <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.compendium</artifactId>
+    </dependency>
+  <dependency>
+      <groupId>org.ops4j.pax.logging</groupId>
+      <artifactId>pax-logging-api</artifactId>
+    </dependency>
+        <dependency>
+      <groupId>org.apache.servicemix.bundles</groupId>
+      <artifactId>org.apache.servicemix.bundles.cglib</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.aries.blueprint</groupId>
+      <artifactId>org.apache.aries.blueprint</artifactId>
+    </dependency>
+  </dependencies>
+
 </project>
