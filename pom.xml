@@ -176,7 +176,6 @@
   <modules>
     <module>common</module>
     <module>impl14</module>
-    <module>impl15</module>
     <module>aries</module>
     <module>spring</module>
     <module>test</module>
