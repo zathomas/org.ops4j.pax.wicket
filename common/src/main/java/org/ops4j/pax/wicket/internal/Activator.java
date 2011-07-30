@@ -15,10 +15,8 @@
  */
 package org.ops4j.pax.wicket.internal;
 
-import org.apache.wicket.util.lang.Objects;
 import org.ops4j.pax.wicket.internal.extender.BundleDelegatingExtensionTracker;
 import org.ops4j.pax.wicket.internal.extender.PaxWicketBundleListener;
-import org.ops4j.pax.wicket.util.serialization.PaxWicketObjectStreamFactory;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -50,9 +48,6 @@ public final class Activator implements BundleActivator {
         }
 
         bundleContext = context;
-
-        LOGGER.debug("Set object stream factory");
-        Objects.setObjectStreamFactory(new PaxWicketObjectStreamFactory(true));
 
         httpTracker = new HttpTracker(context);
         httpTracker.open();

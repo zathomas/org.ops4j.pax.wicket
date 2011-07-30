@@ -41,10 +41,8 @@ public abstract class AbstractPageFactory<T extends Page> implements PageFactory
 
     private BundleContext bundleContext;
     private Hashtable<String, String> properties = new Hashtable<String, String>();
-    private Class<? extends WebPage> pageClass;
 
     private ServiceRegistration pageServiceRegistration;
-    private DefaultPageMounter mountPointRegistration;
 
     /**
      * While this constructor does not require a pageClass it will NOT analyse the loaded classes automatically for the
@@ -67,7 +65,6 @@ public abstract class AbstractPageFactory<T extends Page> implements PageFactory
         validateNotEmpty(applicationName, "applicationName");
         validateNotEmpty(pageName, "pageName");
 
-        this.pageClass = pageClass;
         setInternalBundleContext(bundleContext);
         setPageId(pageId);
         setApplicationName(applicationName);
@@ -82,14 +79,6 @@ public abstract class AbstractPageFactory<T extends Page> implements PageFactory
                 throw new IllegalStateException(String.format("%s [%s] has been registered.", getClass()
                     .getSimpleName(), this));
             }
-            if (pageClass != null) {
-                PaxWicketMountPoint mountPoint = pageClass.getAnnotation(PaxWicketMountPoint.class);
-                if (mountPoint != null) {
-                    mountPointRegistration = new DefaultPageMounter(getApplicationName(), bundleContext);
-                    mountPointRegistration.addMountPoint(mountPoint.mountPoint(), pageClass);
-                    mountPointRegistration.register();
-                }
-            }
             pageServiceRegistration = bundleContext.registerService(classes, this, properties);
         }
     }
@@ -102,10 +91,6 @@ public abstract class AbstractPageFactory<T extends Page> implements PageFactory
             }
             pageServiceRegistration.unregister();
             pageServiceRegistration = null;
-            if (mountPointRegistration != null) {
-                mountPointRegistration.dispose();
-                mountPointRegistration = null;
-            }
         }
     }
 
