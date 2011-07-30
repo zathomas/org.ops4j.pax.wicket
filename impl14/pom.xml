@@ -26,7 +26,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>org.ops4j.pax.wicket.impl.14</artifactId>
+  <artifactId>org.ops4j.pax.wicket.impl14</artifactId>
   <version>0.8.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>OPS4J Pax Wicket :: 1.4 Implementation</name>
