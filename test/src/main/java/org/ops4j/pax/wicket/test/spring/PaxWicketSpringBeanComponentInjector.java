@@ -118,6 +118,14 @@ public class PaxWicketSpringBeanComponentInjector implements IComponentInstantia
             }
         }
 
+        public boolean canHandleInjectionSource(String arg0) {
+            return true;
+        }
+
+        public boolean hasApplicationContext() {
+            return true;
+        }
+
     }
 
 }
