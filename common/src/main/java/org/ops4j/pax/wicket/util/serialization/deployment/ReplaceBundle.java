@@ -23,18 +23,18 @@ import org.ops4j.pax.wicket.internal.Activator;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
-final class ReplaceBundle implements Serializable {
+public final class ReplaceBundle implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private long bundleId;
 
-    ReplaceBundle(Bundle bundle) {
+    public ReplaceBundle(Bundle bundle) {
         validateNotNull(bundle, "bundle");
         bundleId = bundle.getBundleId();
     }
 
-    final Bundle getBundle() {
+    public final Bundle getBundle() {
         BundleContext context = Activator.getBundleContext();
         return context.getBundle(bundleId);
     }

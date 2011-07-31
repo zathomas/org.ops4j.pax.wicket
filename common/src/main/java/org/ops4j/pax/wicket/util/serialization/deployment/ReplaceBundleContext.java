@@ -23,7 +23,7 @@ import org.ops4j.pax.wicket.internal.Activator;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
-final class ReplaceBundleContext implements Serializable {
+public final class ReplaceBundleContext implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,7 +37,7 @@ final class ReplaceBundleContext implements Serializable {
      * @throws IllegalArgumentException Thrown if the specified {@code aBundleContext} is {@code null}.
      * @since 0.5.4
      */
-    ReplaceBundleContext(BundleContext bundleContext) throws IllegalArgumentException {
+    public ReplaceBundleContext(BundleContext bundleContext) throws IllegalArgumentException {
         validateNotNull(bundleContext, "bundleContext");
 
         Bundle bundle = bundleContext.getBundle();
@@ -51,7 +51,7 @@ final class ReplaceBundleContext implements Serializable {
      * 
      * @since 0.5.4
      */
-    final BundleContext getBundleContext() {
+    public final BundleContext getBundleContext() {
         return Activator.getBundleContextByBundleId(bundleId);
     }
 
