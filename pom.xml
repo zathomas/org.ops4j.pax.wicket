@@ -177,14 +177,21 @@
   </reporting>
 
   <modules>
-    <module>bundle14</module>
+    <!-- OPS4J Pax Wicket Core Modules -->
     <module>common</module>
-    <module>impl14</module>
-    <!--<module>aries</module>
-    <module>spring</module>-->
     <module>test</module>
-    <module>samples</module>
+    <!-- OPS4J Pax Wicket Injection Modules -->
+    <module>aries</module>
+    <module>spring</module>
+    <!-- OPS4J Pax Wicket Bundled Wicket Modules -->
+    <module>bundle14</module>
+    <!-- OPS4J Pax Wicket Version Dependent Implementations -->
+    <module>impl14</module>
+    <!-- OPS4J Pax Wicket Karaf Features File -->
     <module>features</module>
+    <!-- OPS4J Pax Wicket Various Samples -->
+    <module>samples</module>
+    <!-- OPS4J Pax Wicket Integration Tests -->
     <!--<module>itests</module>-->
   </modules>
 
