@@ -101,11 +101,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.ops4j.pax.wicket.bundle14</groupId>
-      <artifactId>org.ops4j.pax.wicket.bundle14.core</artifactId>
-      <version>${project.version}</version>
-      <scope>provided</scope>
-    </dependency>
+        <groupId>org.apache.wicket</groupId>
+        <artifactId>wicket</artifactId>
+      </dependency>
     <dependency>
       <groupId>org.ops4j.pax.wicket</groupId>
       <artifactId>org.ops4j.pax.wicket.common</artifactId>
