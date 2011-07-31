@@ -33,8 +33,9 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Export-Package>org.apache.wicket.injection.*;version="${project.version}",
-              org.apache.wicket.proxy.*;version="${project.version}"
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Export-Package>org.apache.wicket.injection.*;version="${impl14.wicket.version}",
+              org.apache.wicket.proxy.*;version="${impl14.wicket.version}"
             </Export-Package>
           </instructions>
         </configuration>
