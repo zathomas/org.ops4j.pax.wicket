@@ -13,22 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.impl14.internal.injection;
-
-import org.apache.wicket.Component;
-import org.apache.wicket.markup.MarkupStream;
-import org.junit.Before;
-import org.junit.Test;
-import org.ops4j.pax.wicket.impl14.impl14.api.PaxWicketBean;
-import org.ops4j.pax.wicket.internal.injection.AbstractPaxWicketInjector;
-
-import java.lang.reflect.Field;
-import java.util.List;
+package org.ops4j.pax.wicket.internal.injection;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
+
+import java.lang.reflect.Field;
+import java.util.List;
+
+import org.apache.wicket.Component;
+import org.apache.wicket.markup.MarkupStream;
+import org.junit.Before;
+import org.junit.Test;
+import org.ops4j.pax.wicket.api.PaxWicketBean;
 
 public class AbstractPaxWicketInjectorTest {
 
@@ -62,7 +61,7 @@ public class AbstractPaxWicketInjectorTest {
             super("foo");
         }
     }
-    
+
     @SuppressWarnings("serial")
     private static class TestComponentBase extends TestComponent {
         public TestComponentBase() {
@@ -115,7 +114,7 @@ public class AbstractPaxWicketInjectorTest {
 
         assertThat(injector.getBeanType(fields.get(0)).getName(), is(TestService.class.getName()));
     }
-    
+
     @Test
     public void testdoesComponentContainPaxWicketBeanAnnotatedFields_shouldReturnTrue() {
         assertThat(injector.doesComponentContainPaxWicketBeanAnnotatedFields(mock(TestComponentBase.class)), is(true));

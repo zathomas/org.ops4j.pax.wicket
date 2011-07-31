@@ -22,6 +22,8 @@ import java.io.ObjectStreamClass;
 
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.application.IClassResolver;
+import org.ops4j.pax.wicket.util.serialization.deployment.ReplaceBundle;
+import org.ops4j.pax.wicket.util.serialization.deployment.ReplaceBundleContext;
 
 /**
  * @author edward.yakop@gmail.com

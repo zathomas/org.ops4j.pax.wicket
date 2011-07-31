@@ -15,8 +15,8 @@
  */
 package org.ops4j.pax.wicket.impl14.util.serialization.development;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -29,9 +29,7 @@ import java.util.Random;
 
 import org.apache.wicket.application.IClassResolver;
 import org.junit.Test;
-import org.ops4j.pax.wicket.impl14.impl14.internal.EnumerationAdapter;
-import org.ops4j.pax.wicket.impl14.util.serialization.development.DevModeObjectInputStream;
-import org.ops4j.pax.wicket.impl14.util.serialization.development.DevModeObjectOutputStream;
+import org.ops4j.pax.wicket.util.lang.EnumerationAdapter;
 
 /**
  * @author edward.yakop@gmail.com
@@ -92,13 +90,13 @@ public final class SerializationTest {
         devModeOS.flush();
 
         byte[] serializedBA = byteArrayOS.toByteArray();
-        Assert.assertNotNull(serializedBA);
+        assertNotNull(serializedBA);
 
         ByteArrayInputStream roBAIS = new ByteArrayInputStream(serializedBA);
         DevModeObjectInputStream roOIS = new DevModeObjectInputStream(roBAIS, resolver);
         Object object = roOIS.readObject();
-        Assert.assertNotNull(object);
-        Assert.assertEquals(objectToSerialize, object);
+        assertNotNull(object);
+        assertEquals(objectToSerialize, object);
     }
 
     public static class SomeObject

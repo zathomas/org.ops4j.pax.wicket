@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.impl14.internal.injection;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+package org.ops4j.pax.wicket.internal.injection;
 
 import org.apache.wicket.Component;
 import org.junit.Test;
-import org.ops4j.pax.wicket.impl14.impl14.api.PaxWicketInjector;
-import org.ops4j.pax.wicket.internal.injection.ComponentInstantiationListenerFacade;
+import org.mockito.Mockito;
+import org.ops4j.pax.wicket.api.PaxWicketInjector;
 
 public class ComponentInstantiationListenerFacadeTest {
 

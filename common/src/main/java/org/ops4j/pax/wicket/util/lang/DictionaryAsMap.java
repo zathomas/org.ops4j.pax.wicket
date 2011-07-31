@@ -32,7 +32,7 @@
  * under the License.
  */
 
-package org.ops4j.pax.wicket.internal.util;
+package org.ops4j.pax.wicket.util.lang;
 
 import java.io.Serializable;
 import java.util.AbstractMap;

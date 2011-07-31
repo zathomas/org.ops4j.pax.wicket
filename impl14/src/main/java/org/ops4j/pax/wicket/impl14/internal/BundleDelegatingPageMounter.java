@@ -24,9 +24,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.wicket.Page;
-import org.ops4j.pax.wicket.impl14.impl14.api.PaxWicketMountPoint;
-import org.ops4j.pax.wicket.impl14.impl14.internal.injection.BundleDelegatingComponentInstanciationListener;
+import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
 import org.ops4j.pax.wicket.impl14.util.DefaultPageMounter;
+import org.ops4j.pax.wicket.internal.BundleDelegatingClassResolver;
+import org.ops4j.pax.wicket.internal.injection.BundleDelegatingComponentInstanciationListener;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
@@ -38,7 +39,8 @@ import org.slf4j.LoggerFactory;
  * operation but rather services are exported directly at the pax-wicket bundle for the application to register the
  * right mount points.
  */
-public class BundleDelegatingPageMounter implements InternalBundleDelegationProvider {
+public class BundleDelegatingPageMounter /** implements InternalBundleDelegationProvider */
+{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BundleDelegatingPageMounter.class);
 

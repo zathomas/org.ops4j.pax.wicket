@@ -24,6 +24,7 @@ import java.util.List;
 import org.apache.wicket.Page;
 import org.apache.wicket.request.target.coding.BookmarkablePageRequestTargetUrlCodingStrategy;
 import org.apache.wicket.request.target.coding.IRequestTargetUrlCodingStrategy;
+import org.ops4j.pax.wicket.api.Constants;
 import org.ops4j.pax.wicket.impl14.api.MountPointInfo;
 import org.ops4j.pax.wicket.impl14.api.PageMounter;
 import org.osgi.framework.BundleContext;
@@ -44,7 +45,7 @@ public class DefaultPageMounter implements PageMounter, ManagedService {
     private ServiceRegistration serviceRegistration;
 
     public DefaultPageMounter(String applicationName, BundleContext bundleContext) {
-        validateNotNull(bundleContext, "bundleContext");
+        // validateNotNull(bundleContext, "bundleContext");
         LOGGER.trace("Initializing MountTracker for {}", applicationName);
         mountPoints = new ArrayList<MountPointInfo>();
         properties = new Hashtable<String, String>();
@@ -84,7 +85,7 @@ public class DefaultPageMounter implements PageMounter, ManagedService {
     @SuppressWarnings("rawtypes")
     public void updated(Dictionary properties) throws ConfigurationException {
         if (properties != null) {
-            setApplicationName((String) properties.get(APPLICATION_NAME));
+            setApplicationName((String) properties.get(Constants.APPLICATION_NAME));
         }
         synchronized (this) {
             serviceRegistration.setProperties(properties);
@@ -92,15 +93,15 @@ public class DefaultPageMounter implements PageMounter, ManagedService {
     }
 
     public void setApplicationName(String applicationName) {
-        validateNotEmpty(applicationName, "applicationName");
+        // validateNotEmpty(applicationName, "applicationName");
         synchronized (this) {
-            properties.put(APPLICATION_NAME, applicationName);
+            properties.put(Constants.APPLICATION_NAME, applicationName);
         }
     }
 
     public String getApplicationName() {
         synchronized (this) {
-            return properties.get(APPLICATION_NAME);
+            return properties.get(Constants.APPLICATION_NAME);
         }
     }
 
@@ -130,8 +131,8 @@ public class DefaultPageMounter implements PageMounter, ManagedService {
         private final IRequestTargetUrlCodingStrategy codingStrategy;
 
         private DefaultMountPointInfo(String path, IRequestTargetUrlCodingStrategy codingStrategy) {
-            validateNotEmpty(path, "path");
-            validateNotNull(codingStrategy, "codingStrategy");
+            // validateNotEmpty(path, "path");
+            // validateNotNull(codingStrategy, "codingStrategy");
             this.path = path;
             this.codingStrategy = codingStrategy;
         }

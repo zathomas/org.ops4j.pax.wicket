@@ -23,7 +23,7 @@ import java.util.Set;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 
-import org.ops4j.pax.wicket.internal.util.MapAsDictionary;
+import org.ops4j.pax.wicket.util.lang.MapAsDictionary;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;

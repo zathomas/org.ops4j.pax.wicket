@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.internal;
+package org.ops4j.pax.wicket.util.lang;
 
 import java.util.Enumeration;
 import java.util.Iterator;

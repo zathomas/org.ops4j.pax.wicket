@@ -180,12 +180,12 @@
     <module>bundle14</module>
     <module>common</module>
     <module>impl14</module>
-    <module>aries</module>
-    <module>spring</module>
+    <!--<module>aries</module>
+    <module>spring</module>-->
     <module>test</module>
     <module>samples</module>
     <module>features</module>
-    <module>itests</module>
+    <!--<module>itests</module>-->
   </modules>
 
   <dependencyManagement>

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.impl14.api;
+package org.ops4j.pax.wicket.api;
 
 import static org.junit.Assert.assertSame;
 
@@ -21,7 +21,6 @@ import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Test;
-import org.ops4j.pax.wicket.api.InjectorHolder;
 
 public class InjectorHolderTest {
 
@@ -52,7 +51,7 @@ public class InjectorHolderTest {
                 return null;
             }
         });
-        Assert.assertSame(paxWicketInjector, InjectorHolder.getInjector());
+        assertSame(paxWicketInjector, InjectorHolder.getInjector());
     }
 
 }

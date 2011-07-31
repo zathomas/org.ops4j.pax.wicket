@@ -15,8 +15,6 @@
  */
 package org.ops4j.pax.wicket.impl14.util.serialization.development;
 
-import static org.ops4j.lang.NullArgumentException.validateNotNull;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -33,7 +31,6 @@ public final class DevModeObjectInputStream extends ObjectInputStream {
 
     public DevModeObjectInputStream(InputStream ois, IClassResolver resolver) throws IOException,
         IllegalArgumentException {
-        validateNotNull(resolver, "resolver");
         inputStream = new PaxWicketObjectInputStream(ois, resolver);
     }
 

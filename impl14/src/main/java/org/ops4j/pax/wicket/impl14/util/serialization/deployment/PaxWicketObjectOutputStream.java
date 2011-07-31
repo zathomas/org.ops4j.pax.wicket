@@ -16,7 +16,6 @@
 package org.ops4j.pax.wicket.impl14.util.serialization.deployment;
 
 import static org.apache.wicket.util.io.SerializableChecker.isAvailable;
-import static org.ops4j.lang.NullArgumentException.validateNotNull;
 
 import java.io.IOException;
 import java.io.NotSerializableException;
@@ -24,6 +23,8 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
 import org.apache.wicket.util.io.SerializableChecker;
+import org.ops4j.pax.wicket.util.serialization.deployment.ReplaceBundle;
+import org.ops4j.pax.wicket.util.serialization.deployment.ReplaceBundleContext;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
@@ -39,7 +40,6 @@ public class PaxWicketObjectOutputStream extends ObjectOutputStream {
     protected final ObjectOutputStream outputStream;
 
     public PaxWicketObjectOutputStream(OutputStream outputStream) throws IOException {
-        validateNotNull(outputStream, "outputStream");
         this.outputStream = new OSGiAwareOutputStream(outputStream);
     }
 

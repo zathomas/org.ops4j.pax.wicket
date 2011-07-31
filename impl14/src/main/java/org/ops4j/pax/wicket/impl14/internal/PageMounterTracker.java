@@ -16,14 +16,13 @@
 package org.ops4j.pax.wicket.impl14.internal;
 
 import static java.lang.String.format;
-import static org.ops4j.lang.NullArgumentException.validateNotNull;
-import static org.ops4j.pax.wicket.impl14.impl14.api.Constants.APPLICATION_NAME;
 import static org.osgi.framework.Constants.OBJECTCLASS;
 
 import java.util.List;
 
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.target.coding.IRequestTargetUrlCodingStrategy;
+import org.ops4j.pax.wicket.api.Constants;
 import org.ops4j.pax.wicket.impl14.api.MountPointInfo;
 import org.ops4j.pax.wicket.impl14.api.PageMounter;
 import org.osgi.framework.BundleContext;
@@ -43,18 +42,18 @@ public final class PageMounterTracker extends ServiceTracker {
     public PageMounterTracker(BundleContext context, WebApplication application, String applicationName)
         throws IllegalArgumentException {
         super(context, createFilter(context, applicationName), null);
-        validateNotNull(application, "application");
+        // validateNotNull(application, "application");
         this.application = application;
     }
 
     private static Filter createFilter(BundleContext context, String applicationName)
         throws IllegalArgumentException {
-        validateNotNull(context, "Context");
-        validateNotNull(applicationName, "applicationName");
+        // validateNotNull(context, "Context");
+        // validateNotNull(applicationName, "applicationName");
 
         String filterString =
             "(&(" + OBJECTCLASS + "=" + PageMounter.class.getName() + ")"
-                    + "(" + APPLICATION_NAME + "=" + applicationName + "))";
+                    + "(" + Constants.APPLICATION_NAME + "=" + applicationName + "))";
 
         try {
             return context.createFilter(filterString);

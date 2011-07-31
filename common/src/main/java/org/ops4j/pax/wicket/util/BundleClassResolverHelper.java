@@ -18,7 +18,7 @@
 package org.ops4j.pax.wicket.util;
 
 import org.apache.wicket.application.IClassResolver;
-import org.ops4j.pax.wicket.internal.EnumerationAdapter;
+import org.ops4j.pax.wicket.util.lang.EnumerationAdapter;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
