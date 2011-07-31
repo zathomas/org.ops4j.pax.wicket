@@ -10,6 +10,7 @@ public class Activator implements BundleActivator {
     public static final String SYMBOLIC_NAME = "org.ops4j.pax.wicket.common";
 
     public void start(BundleContext context) throws Exception {
+        // TODO: [PAXWICKET-257] This have to be solved via an SPI in the common package
         Objects.setObjectStreamFactory(new PaxWicketObjectStreamFactory(true));
     }
 
