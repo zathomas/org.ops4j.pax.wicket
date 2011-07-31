@@ -18,7 +18,7 @@ package org.ops4j.pax.wicket.aries.internal;
 import java.util.Map;
 
 import org.ops4j.pax.wicket.api.PaxWicketBean;
-import org.ops4j.pax.wicket.internal.injection.AbstractProxyTargetLocator;
+import org.ops4j.pax.wicket.util.AbstractProxyTargetLocator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.service.blueprint.container.BlueprintContainer;
@@ -81,5 +81,8 @@ public class BlueprintBeanProxyTargetLocator extends AbstractProxyTargetLocator<
     protected Class<? extends BlueprintContainer> getContainerClass() {
         return BlueprintContainer.class;
     }
-}
 
+    public boolean canHandleInjectionSource(String injectionSourceDefinition) {
+        return PaxWicketBean.INJECTION_SOURCE_BLUEPRINT.equals(injectionSourceDefinition);
+    }
+}

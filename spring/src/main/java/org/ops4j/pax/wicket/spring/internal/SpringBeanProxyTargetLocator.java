@@ -18,7 +18,7 @@ package org.ops4j.pax.wicket.spring.internal;
 import java.util.Map;
 
 import org.ops4j.pax.wicket.api.PaxWicketBean;
-import org.ops4j.pax.wicket.internal.injection.AbstractProxyTargetLocator;
+import org.ops4j.pax.wicket.util.AbstractProxyTargetLocator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -84,5 +84,8 @@ public class SpringBeanProxyTargetLocator extends AbstractProxyTargetLocator<App
         return ApplicationContext.class;
     }
 
-}
+    public boolean canHandleInjectionSource(String injectionSourceDefinition) {
+        return PaxWicketBean.INJECTION_SOURCE_SPRING.equals(injectionSourceDefinition);
+    }
 
+}

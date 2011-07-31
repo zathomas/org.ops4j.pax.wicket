@@ -39,8 +39,12 @@
         <configuration>
           <instructions>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Private-Package></Private-Package>
+            <Private-Package>org.ops4j.pax.wicket.aries.internal.*</Private-Package>
             <Import-Package>
+              org.ops4j.pax.wicket.api,
+              org.ops4j.pax.wicket.internal.injection,
+              org.ops4j.pax.wicket.util,
+              org.osgi.framework,
               net.sf.cglib.proxy;version="${cglib.range}";resolution:=optional,
               net.sf.cglib.core;version="${cglib.range}";resolution:=optional,
               net.sf.cglib.reflect;version="${cglib.range}";resolution:=optional,
@@ -52,9 +56,7 @@
               org.osgi.service.blueprint.reflect;resolution:=optional,
             </Import-Package>
             <Export-Package></Export-Package>
-            <Bundle-ClassPath>
-              .
-            </Bundle-ClassPath>
+            <Bundle-ClassPath>.</Bundle-ClassPath>
           </instructions>
         </configuration>
       </plugin>
@@ -62,11 +64,15 @@
   </build>
 
   <dependencies>
-  <dependency>
-    <groupId>org.ops4j.pax.wicket</groupId>
-    <artifactId>org.ops4j.pax.wicket.common</artifactId>
-  </dependency>
-  <dependency>
+    <dependency>
+      <groupId>org.ops4j.pax.wicket</groupId>
+      <artifactId>org.ops4j.pax.wicket.common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.osgi</groupId>
       <artifactId>org.osgi.core</artifactId>
     </dependency>
@@ -74,11 +80,11 @@
       <groupId>org.osgi</groupId>
       <artifactId>org.osgi.compendium</artifactId>
     </dependency>
-  <dependency>
+    <dependency>
       <groupId>org.ops4j.pax.logging</groupId>
       <artifactId>pax-logging-api</artifactId>
     </dependency>
-        <dependency>
+    <dependency>
       <groupId>org.apache.servicemix.bundles</groupId>
       <artifactId>org.apache.servicemix.bundles.cglib</artifactId>
     </dependency>
@@ -86,6 +92,23 @@
       <groupId>org.apache.aries.blueprint</groupId>
       <artifactId>org.apache.aries.blueprint</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-all</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+    </dependency>
   </dependencies>
 
 </project>
+

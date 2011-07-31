@@ -15,7 +15,6 @@
  */
 package org.ops4j.pax.wicket.aries.internal;
 
-import org.ops4j.pax.wicket.internal.injection.XmlFileTestUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
