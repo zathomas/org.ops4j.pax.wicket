@@ -49,10 +49,15 @@
             </Bundle-Activator>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Import-Package>
-              org.apache.wicket,
-              org.apache.wicket.markup.html,
-              org.apache.wicket.markup.html.basic,
-              org.apache.wicket.protocol.http,
+              org.apache.wicket;version="${wicket.range}",
+              org.apache.wicket.markup.html;version="${wicket.range}",
+              org.apache.wicket.markup.html.basic;version="${wicket.range}",
+              org.apache.wicket.protocol.http;version="${wicket.range}",
+              org.apache.wicket.settings;version="${wicket.range}",
+              org.apache.wicket.session;version="${wicket.range}",
+              org.apache.wicket.util.file;version="${wicket.range}",
+              org.apache.wicket.request;version="${wicket.range}",
+              org.apache.wicket.ajax;version="${wicket.range}",
               org.ops4j.pax.wicket.api,
               org.ops4j.pax.wicket.util,
               org.osgi.framework,
@@ -60,12 +65,7 @@
               net.sf.cglib.core;version="${cglib.range}",
               net.sf.cglib.reflect;version="${cglib.range}",
               javax.servlet,
-              org.apache.wicket.settings,
-              org.apache.wicket.session,
-              org.apache.wicket.util.file,
-              org.apache.wicket.request,
-              javax.servlet.http,
-              org.apache.wicket.ajax
+              javax.servlet.http
             </Import-Package>
           </instructions>
         </configuration>

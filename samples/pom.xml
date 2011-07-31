@@ -16,8 +16,8 @@
   <modules>
     <module>provision</module>
     <module>navigation</module>
-    <!--<module>plain</module>
-    <module>blueprint</module>
+    <module>plain</module>
+    <!--<module>blueprint</module>
     <module>springdm</module>
     <module>mixed</module>
     <module>features</module>-->
