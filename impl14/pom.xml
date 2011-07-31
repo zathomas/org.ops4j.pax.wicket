@@ -16,7 +16,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <parent>
     <groupId>org.ops4j.pax.wicket</groupId>
@@ -57,10 +58,38 @@
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Private-Package></Private-Package>
             <Bundle-Activator>
-              org.ops4j.pax.wicket.internal.Activator
+              org.ops4j.pax.wicket.impl14.internal.Activator
             </Bundle-Activator>
-            <Import-Package></Import-Package>
-            <Export-Package></Export-Package>
+            <Private-Package>
+              org.ops4j.pax.wicket.impl14.internal.*
+            </Private-Package>
+            <Import-Package>
+              javax.portlet.*; resolution:=optional,
+              org.apache.portals.*;
+              resolution:=optional,
+              org.slf4j.*; version="[1,2)",
+              javax.crypto.*,
+              javax.imageio.*,
+              javax.servlet.*,
+              javax.swing.*,
+              javax.xml.*,
+              org.apache.wicket.*;version="${impl14.wicket.range}",
+              org.ops4j.pax.wicket.api;version="${project.version}",
+              org.ops4j.pax.wicket.util.serialization.deployment;version="${project.version}",
+              org.osgi.framework;version="1.4",
+              org.osgi.service.*;version="1",
+              org.osgi.util.*;version="1",
+              net.sf.cglib.proxy;version="${cglib.range}";resolution:=optional,
+              net.sf.cglib.core;version="${cglib.range}";resolution:=optional,
+              net.sf.cglib.reflect;version="${cglib.range}";resolution:=optional,
+              org.xml.sax,
+              org.w3c.dom,
+              !sun.*
+            </Import-Package>
+            <Export-Package>
+              org.ops4j.pax.wicket.impl14.api;version="${project.version}",
+              org.ops4j.pax.wicket.impl14.util.*;version="${project.version}",
+            </Export-Package>
             <Bundle-ClassPath>
               .
             </Bundle-ClassPath>
@@ -75,32 +104,39 @@
       <groupId>org.ops4j.pax.wicket.bundle14</groupId>
       <artifactId>org.ops4j.pax.wicket.bundle14.core</artifactId>
       <version>${project.version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.ops4j.pax.wicket</groupId>
       <artifactId>org.ops4j.pax.wicket.common</artifactId>
       <version>${project.version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-all</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>${slf4j.version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.osgi</groupId>
       <artifactId>org.osgi.core</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.osgi</groupId>
       <artifactId>org.osgi.compendium</artifactId>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 </project>

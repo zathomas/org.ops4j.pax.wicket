@@ -82,7 +82,7 @@
               javax.servlet.*,
               javax.swing.*,
               javax.xml.*,
-              org.apache.wicket.*;version="${wicket.dependency.version}",
+              org.apache.wicket.*;version="${wicket.range}",
               org.osgi.framework;version="1.4",
               org.osgi.service.*;version="1",
               org.osgi.util.*;version="1",
@@ -96,7 +96,6 @@
             <Export-Package>
               org.ops4j.pax.wicket.api;version="${project.version}",
               org.ops4j.pax.wicket.util.*;version="${project.version}",
-              org.apache.wicket.*;version="${wicket.dependency.version}"
             </Export-Package>
             <Bundle-ClassPath>
               .
