@@ -26,6 +26,7 @@ import org.ops4j.pax.wicket.api.Constants;
 import org.ops4j.pax.wicket.api.InjectorHolder;
 import org.ops4j.pax.wicket.api.NoBeanAvailableForInjectionException;
 import org.ops4j.pax.wicket.api.PaxWicketInjector;
+import org.ops4j.pax.wicket.util.injection.AbstractPaxWicketInjector;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;
 import org.osgi.framework.InvalidSyntaxException;

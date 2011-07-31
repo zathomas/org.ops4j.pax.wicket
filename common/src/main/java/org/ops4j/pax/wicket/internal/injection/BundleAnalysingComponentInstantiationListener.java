@@ -28,6 +28,7 @@ import net.sf.cglib.proxy.Factory;
 
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.ops4j.pax.wicket.internal.OverwriteProxy;
+import org.ops4j.pax.wicket.util.injection.AbstractPaxWicketInjector;
 import org.ops4j.pax.wicket.util.proxy.IProxyTargetLocator;
 import org.ops4j.pax.wicket.util.proxy.LazyInitProxyFactory;
 import org.osgi.framework.BundleContext;

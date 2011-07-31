@@ -42,8 +42,8 @@
             <Private-Package>org.ops4j.pax.wicket.aries.internal.*</Private-Package>
             <Import-Package>
               org.ops4j.pax.wicket.api,
-              org.ops4j.pax.wicket.internal.injection,
               org.ops4j.pax.wicket.util,
+              org.ops4j.pax.wicket.util.injection,
               org.osgi.framework,
               net.sf.cglib.proxy;version="${cglib.range}";resolution:=optional,
               net.sf.cglib.core;version="${cglib.range}";resolution:=optional,

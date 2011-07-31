@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.internal.injection;
+package org.ops4j.pax.wicket.util.injection;
 
 import org.ops4j.pax.wicket.util.BundleClassResolverHelper;
 import org.osgi.framework.BundleContext;

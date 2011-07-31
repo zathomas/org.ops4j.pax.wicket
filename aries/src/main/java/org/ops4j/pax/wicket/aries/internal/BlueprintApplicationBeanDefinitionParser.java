@@ -18,8 +18,8 @@ package org.ops4j.pax.wicket.aries.internal;
 import org.apache.aries.blueprint.ParserContext;
 import org.apache.aries.blueprint.mutable.MutableBeanMetadata;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
-import org.ops4j.pax.wicket.internal.injection.ApplicationDecorator;
-import org.ops4j.pax.wicket.internal.injection.InjectionParserUtil;
+import org.ops4j.pax.wicket.util.injection.ApplicationDecorator;
+import org.ops4j.pax.wicket.util.injection.InjectionParserUtil;
 import org.w3c.dom.Element;
 
 public class BlueprintApplicationBeanDefinitionParser extends AbstractBlueprintBeanDefinitionParser {

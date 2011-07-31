@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package org.ops4j.pax.wicket.internal.injection;
+package org.ops4j.pax.wicket.util.injection;
 
 import java.util.Map;
 

@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.typeCompatibleWith;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
-import org.ops4j.pax.wicket.internal.injection.PageFactoryDecorator;
+import org.ops4j.pax.wicket.util.injection.PageFactoryDecorator;
 
 public class BlueprintPageFactoryBeanDefinitionParserTest {
 

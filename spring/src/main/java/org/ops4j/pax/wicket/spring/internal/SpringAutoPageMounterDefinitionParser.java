@@ -15,7 +15,7 @@
  */
 package org.ops4j.pax.wicket.spring.internal;
 
-import org.ops4j.pax.wicket.internal.injection.BundleScanningMountPointProviderDecorator;
+import org.ops4j.pax.wicket.util.injection.BundleScanningMountPointProviderDecorator;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.w3c.dom.Element;
 

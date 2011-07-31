@@ -17,7 +17,7 @@ package org.ops4j.pax.wicket.aries.internal;
 
 import org.apache.aries.blueprint.ParserContext;
 import org.apache.aries.blueprint.mutable.MutableBeanMetadata;
-import org.ops4j.pax.wicket.internal.injection.BundleClassResolverHelperDecorator;
+import org.ops4j.pax.wicket.util.injection.BundleClassResolverHelperDecorator;
 import org.w3c.dom.Element;
 
 public class BlueprintClassResolverDefinitionParser extends AbstractBlueprintBeanDefinitionParser {
