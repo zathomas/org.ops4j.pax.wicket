@@ -1,0 +1,47 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.ops4j.pax.wicket.bundle14</groupId>
+    <artifactId>bundle14</artifactId>
+    <version>0.8.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>org.ops4j.pax.wicket.bundle14.ioc</artifactId>
+  <packaging>bundle</packaging>
+  <name>OPS4J Pax Wicket :: Wicket 1.4.x Bundled :: Wicket IOC Bundles</name>
+  <version>0.8.0-SNAPSHOT</version>
+  <description>An OSGi-friendly version of the wicket-ioc module that does not use dynamic imports.</description>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket-ioc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.servicemix.bundles</groupId>
+      <artifactId>org.apache.servicemix.bundles.cglib</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Export-Package>org.apache.wicket.injection.*;version="${impl14.wicket.version}",
+              org.apache.wicket.proxy.*;version="${impl14.wicket.version}"
+            </Export-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
+

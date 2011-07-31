@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.ops4j.pax.wicket.bundle14</groupId>
+    <artifactId>bundle14</artifactId>
+    <version>0.8.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>org.ops4j.pax.wicket.bundle14.core</artifactId>
+  <name>OPS4J Pax Wicket :: Wicket 1.4.x Bundled :: Wicket Core Bundles</name>
+
+  <packaging>bundle</packaging>
+
+  <description>
+  A module that creates a .jar from the classes in wicket, wicket-util and wicket-request modules in order
+  to create a valid OSGi bundle of the wicket framework.
+  </description>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket</artifactId>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket-extensions</artifactId>
+      <classifier>sources</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket-devutils</artifactId>
+      <classifier>sources</classifier>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptors>
+            <descriptor>src/assembly/sources.xml</descriptor>
+          </descriptors>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-sources</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Import-Package>
+              junit.*; resolution:=optional,
+              javax.portlet.*; resolution:=optional,
+              org.apache.portals.*; resolution:=optional,
+              org.slf4j.*; version="[1,2)",
+              javax.crypto.*,
+              javax.imageio.*,
+              javax.servlet.*,
+              javax.swing.*,
+              javax.xml.*,
+              org.xml.sax,
+              org.w3c.dom,
+              !sun.*
+            </Import-Package>
+            <Export-Package>org.apache.wicket.*;version=${impl14.wicket.version};-split-package:=merge-first</Export-Package>
+            <Embed-Dependency>*;scope=compile;type=!pom;classifier=!sources;inline=true</Embed-Dependency>
+            <Embed-Transitive>false</Embed-Transitive>
+            <_nouses>true</_nouses>
+            <_failok>true</_failok>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+

@@ -15,12 +15,12 @@
 
   <modules>
     <module>provision</module>
+    <module>navigation</module>
     <module>plain</module>
     <module>blueprint</module>
-    <module>springdm</module>
+    <!--    <module>springdm</module>
     <module>mixed</module>
-    <module>navigation</module>
-    <module>features</module>
+    <module>features</module>-->
   </modules>
 
   <properties>

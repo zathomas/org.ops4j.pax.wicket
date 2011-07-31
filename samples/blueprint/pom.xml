@@ -15,7 +15,7 @@
 
   <modules>
     <module>simple</module>
-    <module>injection</module>
+    <!--<module>injection</module>-->
   </modules>
 
 </project>

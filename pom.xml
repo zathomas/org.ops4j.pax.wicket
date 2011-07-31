@@ -53,7 +53,9 @@
     <karaf.version>2.2.2</karaf.version>
     <felix.eventadmin.version>1.2.12</felix.eventadmin.version>
     <felix.configadmin.version>1.2.8</felix.configadmin.version>
-    <wicket.dependency.version>1.4.17</wicket.dependency.version>
+    <impl14.wicket.version>1.4.17</impl14.wicket.version>
+    <impl14.wicket.range>[1.4,1.5)</impl14.wicket.range>
+    <wicket.range>[1.4,1.6)</wicket.range>
     <release-paxwicket-altGitURL>scm:git:git@github.com:ops4j/org.ops4j.pax.wicket.git</release-paxwicket-altGitURL>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jetty.version>7.3.1.v20110307</jetty.version>
@@ -149,6 +151,7 @@
     </pluginManagement>
   </build>
 
+  <!-- TODO: PAXWICKET-252 -->
   <reporting>
     <plugins>
       <plugin>
@@ -161,7 +164,7 @@
           <groups>
             <group>
               <title>API</title>
-              <packages>org.ops4j.pax.wicket.api</packages>
+              <packages>org.ops4j.pax.wicket.common</packages>
             </group>
             <group>
               <title>Utilities</title>
@@ -174,25 +177,50 @@
   </reporting>
 
   <modules>
+    <!-- OPS4J Pax Wicket Core Modules -->
+    <module>common</module>
     <module>test</module>
-    <module>samples</module>
+    <!-- OPS4J Pax Wicket Injection Modules -->
+    <module>injection</module>
+    <!-- OPS4J Pax Wicket Bundled Wicket Modules -->
+    <module>bundle14</module>
+    <!-- OPS4J Pax Wicket Version Dependent Implementations -->
+    <module>impl14</module>
+    <!-- OPS4J Pax Wicket Karaf Features File -->
     <module>features</module>
-    <module>itests</module>
-
-    <!-- new modules -->
-    <module>pax-wicket-common</module>
-    <module>pax-wicket-14-impl</module>
-    <module>pax-wicket-15-impl</module>
-    <module>pax-wicket-aries</module>
-    <module>pax-wicket-spring</module>
+    <!-- OPS4J Pax Wicket Various Samples -->
+    <module>samples</module>
+    <!-- OPS4J Pax Wicket Integration Tests -->
+    <!--<module>itests</module>-->
   </modules>
 
   <dependencyManagement>
     <dependencies>
+      <!-- Bundled Wicket Core -->
+      <dependency>
+        <groupId>org.ops4j.pax.wicket.bundle14</groupId>
+        <artifactId>org.ops4j.pax.wicket.bundle14.core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
       <!-- Internal Dependencies -->
       <dependency>
         <groupId>org.ops4j.pax.wicket</groupId>
         <artifactId>org.ops4j.pax.wicket.common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.ops4j.pax.wicket</groupId>
+        <artifactId>org.ops4j.pax.wicket.impl14</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.ops4j.pax.wicket.injection</groupId>
+        <artifactId>org.ops4j.pax.wicket.injection.aries</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.ops4j.pax.wicket.injection</groupId>
+        <artifactId>org.ops4j.pax.wicket.injection.spring</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -254,7 +282,7 @@
         <artifactId>pax-exam-container-default</artifactId>
         <version>${pax.exam.version}</version>
       </dependency>
-        
+
       <dependency>
         <groupId>org.ops4j.pax.swissbox</groupId>
         <artifactId>pax-swissbox-tinybundles</artifactId>
@@ -497,18 +525,8 @@
       <dependency>
         <groupId>org.apache.wicket</groupId>
         <artifactId>wicket</artifactId>
-        <version>${wicket.dependency.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.wicket</groupId>
-        <artifactId>wicket-auth-roles</artifactId>
-        <version>${wicket.dependency.version}</version>
+        <version>${impl14.wicket.version}</version>
+        <scope>provided</scope>
         <exclusions>
           <exclusion>
             <groupId>org.slf4j</groupId>
@@ -519,7 +537,82 @@
       <dependency>
         <groupId>org.apache.wicket</groupId>
         <artifactId>wicket-extensions</artifactId>
-        <version>${wicket.dependency.version}</version>
+        <version>${impl14.wicket.version}</version>
+        <scope>provided</scope>
+        <exclusions>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.wicket</groupId>
+        <artifactId>wicket-devutils</artifactId>
+        <version>${impl14.wicket.version}</version>
+        <scope>provided</scope>
+        <exclusions>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.wicket</groupId>
+        <artifactId>wicket-ioc</artifactId>
+        <version>${impl14.wicket.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.wicket</groupId>
+        <artifactId>wicket</artifactId>
+        <version>${impl14.wicket.version}</version>
+        <scope>provided</scope>
+        <classifier>sources</classifier>
+        <exclusions>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.wicket</groupId>
+        <artifactId>wicket-extensions</artifactId>
+        <version>${impl14.wicket.version}</version>
+        <scope>provided</scope>
+        <classifier>sources</classifier>
+        <exclusions>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.wicket</groupId>
+        <artifactId>wicket-devutils</artifactId>
+        <version>${impl14.wicket.version}</version>
+        <scope>provided</scope>
+        <classifier>sources</classifier>
+        <exclusions>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.wicket</groupId>
+        <artifactId>wicket-ioc</artifactId>
+        <version>${impl14.wicket.version}</version>
+        <classifier>sources</classifier>
         <exclusions>
           <exclusion>
             <groupId>org.slf4j</groupId>
@@ -533,17 +626,6 @@
         <version>${cglib.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.wicket</groupId>
-        <artifactId>wicket-devutils</artifactId>
-        <version>${wicket.dependency.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>4.8.2</version>
@@ -553,6 +635,12 @@
         <groupId>org.mockito</groupId>
         <artifactId>mockito-all</artifactId>
         <version>1.8.5</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-all</artifactId>
+        <version>1.1</version>
         <scope>test</scope>
       </dependency>
       <dependency>

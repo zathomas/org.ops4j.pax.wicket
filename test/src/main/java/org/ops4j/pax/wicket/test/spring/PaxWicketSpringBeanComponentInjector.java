@@ -24,7 +24,7 @@ import org.apache.wicket.application.IComponentInstantiationListener;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.ops4j.pax.wicket.api.InjectorHolder;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
-import org.ops4j.pax.wicket.internal.injection.AbstractPaxWicketInjector;
+import org.ops4j.pax.wicket.util.injection.AbstractPaxWicketInjector;
 import org.ops4j.pax.wicket.util.proxy.IProxyTargetLocator;
 import org.ops4j.pax.wicket.util.proxy.LazyInitProxyFactory;
 import org.springframework.context.ApplicationContext;
@@ -116,6 +116,14 @@ public class PaxWicketSpringBeanComponentInjector implements IComponentInstantia
             } else {
                 return appContext.getBean(beanName);
             }
+        }
+
+        public boolean canHandleInjectionSource(String arg0) {
+            return true;
+        }
+
+        public boolean hasApplicationContext() {
+            return true;
         }
 
     }
