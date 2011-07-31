@@ -22,7 +22,13 @@
     <service-properties>
       <entry key="osgi.service.blueprint.namespace" value="http://www.ops4j.org/schema/wicket" />
     </service-properties>
-    <bean class="org.ops4j.pax.wicket.aries.internal.BlueprintNamespaceHandler " />
+    <bean class="org.ops4j.pax.wicket.injection.aries.internal.BlueprintNamespaceHandler " />
+  </service>
+  
+  <service interface="org.ops4j.pax.wicket.util.proxy.ProxyTargetLocatorFactory">
+    <bean class="org.ops4j.pax.wicket.injection.aries.internal.BlueprintBeanProxyTargetLocatorFactory">
+        <property name="bundleContext" ref="blueprintBundleContext" />
+    </bean>
   </service>
 
 </blueprint>

@@ -7,7 +7,7 @@ import org.ops4j.pax.wicket.api.PaxWicketBean;
 
 public interface ProxyTargetLocatorFactory {
 
-    IProxyTargetLocator createProxyTargetLocator(Field field, Class<?> page,
+    IProxyTargetLocator createProxyTargetLocator(Field field, Class<?> beanType, Class<?> parent,
             PaxWicketBean annotation, Map<String, String> overwrites);
 
 }
