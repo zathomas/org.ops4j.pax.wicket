@@ -181,8 +181,7 @@
     <module>common</module>
     <module>test</module>
     <!-- OPS4J Pax Wicket Injection Modules -->
-    <module>aries</module>
-    <module>spring</module>
+    <module>injection</module>
     <!-- OPS4J Pax Wicket Bundled Wicket Modules -->
     <module>bundle14</module>
     <!-- OPS4J Pax Wicket Version Dependent Implementations -->
@@ -215,13 +214,13 @@
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.ops4j.pax.wicket</groupId>
-        <artifactId>org.ops4j.pax.wicket.aries</artifactId>
+        <groupId>org.ops4j.pax.wicket.injection</groupId>
+        <artifactId>org.ops4j.pax.wicket.injection.aries</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.ops4j.pax.wicket</groupId>
-        <artifactId>org.ops4j.pax.wicket.spring</artifactId>
+        <groupId>org.ops4j.pax.wicket.injection</groupId>
+        <artifactId>org.ops4j.pax.wicket.injection.spring</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>

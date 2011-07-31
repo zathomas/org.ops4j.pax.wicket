@@ -212,12 +212,12 @@
       <artifactId>org.ops4j.pax.wicket.impl14</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.ops4j.pax.wicket</groupId>
-      <artifactId>org.ops4j.pax.wicket.aries</artifactId>
+      <groupId>org.ops4j.pax.wicket.injection</groupId>
+      <artifactId>org.ops4j.pax.wicket.injection.aries</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.ops4j.pax.wicket</groupId>
-      <artifactId>org.ops4j.pax.wicket.spring</artifactId>
+      <groupId>org.ops4j.pax.wicket.injection</groupId>
+      <artifactId>org.ops4j.pax.wicket.injection.spring</artifactId>
     </dependency>
   </dependencies>
 
