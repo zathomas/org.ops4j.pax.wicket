@@ -200,8 +200,16 @@
       <artifactId>org.apache.servicemix.bundles.cglib</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.ops4j.pax.wicket.bundle14</groupId>
+      <artifactId>org.ops4j.pax.wicket.bundle14.core</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.ops4j.pax.wicket</groupId>
       <artifactId>org.ops4j.pax.wicket.common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.ops4j.pax.wicket</groupId>
+      <artifactId>org.ops4j.pax.wicket.impl14</artifactId>
     </dependency>
   </dependencies>
 
