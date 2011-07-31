@@ -24,6 +24,7 @@ import org.apache.wicket.protocol.http.IWebApplicationFactory;
 import org.ops4j.pax.wicket.api.Constants;
 import org.ops4j.pax.wicket.internal.BundleDelegatingClassResolver;
 import org.ops4j.pax.wicket.internal.injection.BundleDelegatingComponentInstanciationListener;
+import org.ops4j.pax.wicket.internal.injection.ProxyTargetLocatorFactoryTracker;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -52,14 +53,17 @@ public class BundleDelegatingExtensionTracker extends ServiceTracker {
         new HashMap<ServiceReference, BundleDelegatingClassResolver>();
     private Map<ServiceReference, BundleDelegatingComponentInstanciationListener> componentInstanciationListener =
         new HashMap<ServiceReference, BundleDelegatingComponentInstanciationListener>();
+    private final ProxyTargetLocatorFactoryTracker targetLocatorFactoryTracker;
 
     // TODO: [PAXWICKET-255] reintroduce
     // private Map<ServiceReference, BundleDelegatingPageMounter> pageMounter =
     // new HashMap<ServiceReference, BundleDelegatingPageMounter>();
 
-    public BundleDelegatingExtensionTracker(BundleContext context) {
+    public BundleDelegatingExtensionTracker(BundleContext context,
+            ProxyTargetLocatorFactoryTracker targetLocatorFactoryTracker) {
         super(context, IWebApplicationFactory.class.getName(), null);
         paxWicketBundleContext = context;
+        this.targetLocatorFactoryTracker = targetLocatorFactoryTracker;
     }
 
     @Override
@@ -94,7 +98,7 @@ public class BundleDelegatingExtensionTracker extends ServiceTracker {
         classResolvers.put(reference, new BundleDelegatingClassResolver(paxWicketBundleContext, applicationName));
         classResolvers.get(reference).start();
         componentInstanciationListener.put(reference, new BundleDelegatingComponentInstanciationListener(
-            paxWicketBundleContext, applicationName));
+            paxWicketBundleContext, applicationName, targetLocatorFactoryTracker));
         componentInstanciationListener.get(reference).start();
         // TODO: [PAXWICKET-255] reintroduce
         // pageMounter.put(reference, new BundleDelegatingPageMounter(applicationName, paxWicketBundleContext));

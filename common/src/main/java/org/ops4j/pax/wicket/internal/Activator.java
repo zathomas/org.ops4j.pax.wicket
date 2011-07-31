@@ -17,6 +17,7 @@ package org.ops4j.pax.wicket.internal;
 
 import org.ops4j.pax.wicket.internal.extender.BundleDelegatingExtensionTracker;
 import org.ops4j.pax.wicket.internal.extender.PaxWicketBundleListener;
+import org.ops4j.pax.wicket.internal.injection.ProxyTargetLocatorFactoryTracker;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -25,8 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class Activator implements BundleActivator {
-
-    public static final String SYMBOLIC_NAME = "org.ops4j.pax.wicket.service";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Activator.class);
 
@@ -38,6 +37,8 @@ public final class Activator implements BundleActivator {
     private PaxWicketBundleListener paxWicketBundleListener;
 
     private BundleDelegatingExtensionTracker bundleDelegatingExtensionTracker;
+
+    private ProxyTargetLocatorFactoryTracker proxyTargetLocatorFactoryTracker;
 
     public final void start(BundleContext context) throws Exception {
         if (LOGGER.isDebugEnabled()) {
@@ -55,7 +56,10 @@ public final class Activator implements BundleActivator {
         applicationFactoryTracker = new PaxWicketAppFactoryTracker(context, httpTracker);
         applicationFactoryTracker.open(true);
 
-        bundleDelegatingExtensionTracker = new BundleDelegatingExtensionTracker(context);
+        proxyTargetLocatorFactoryTracker = new ProxyTargetLocatorFactoryTracker(context);
+        proxyTargetLocatorFactoryTracker.open();
+        bundleDelegatingExtensionTracker =
+            new BundleDelegatingExtensionTracker(context, proxyTargetLocatorFactoryTracker);
         bundleDelegatingExtensionTracker.open(true);
 
         paxWicketBundleListener = new PaxWicketBundleListener(bundleDelegatingExtensionTracker);
@@ -79,10 +83,12 @@ public final class Activator implements BundleActivator {
         context.removeBundleListener(paxWicketBundleListener);
         httpTracker.close();
         applicationFactoryTracker.close();
+        proxyTargetLocatorFactoryTracker.close();
         bundleDelegatingExtensionTracker.close();
 
         httpTracker = null;
         applicationFactoryTracker = null;
+        proxyTargetLocatorFactoryTracker = null;
         bundleDelegatingExtensionTracker = null;
         bundleContext = null;
 

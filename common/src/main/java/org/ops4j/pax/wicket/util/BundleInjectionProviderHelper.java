@@ -28,6 +28,7 @@ import org.ops4j.pax.wicket.api.NoBeanAvailableForInjectionException;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
 import org.ops4j.pax.wicket.api.PaxWicketInjector;
 import org.ops4j.pax.wicket.internal.injection.BundleAnalysingComponentInstantiationListener;
+import org.ops4j.pax.wicket.internal.injection.ProxyTargetLocatorFactoryTracker;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.cm.ConfigurationException;
@@ -51,6 +52,8 @@ public final class BundleInjectionProviderHelper {
     private final Object lock = new Object();
     private final String injectionSource;
     private ServiceRegistration serviceRegistration;
+
+    private ProxyTargetLocatorFactoryTracker proxyTargetLocatorFactoryTracker;
 
     /**
      * Construct an instance of {@code BundleClassResolver}. The injectionSource is defined as constant in
@@ -99,11 +102,8 @@ public final class BundleInjectionProviderHelper {
         synchronized (lock) {
             if (applicationName == null) {
                 serviceProperties.remove(APPLICATION_NAME);
-                bundleAnalysingComponentInstantiationListener = null;
             } else {
                 serviceProperties.put(APPLICATION_NAME, applicationName);
-                bundleAnalysingComponentInstantiationListener =
-                    new BundleAnalysingComponentInstantiationListener(bundleContext, injectionSource);
             }
 
             if (serviceRegistration != null) {
@@ -120,6 +120,11 @@ public final class BundleInjectionProviderHelper {
             if (serviceRegistration == null) {
                 BundleInjectionResolver resolver = new BundleInjectionResolver();
                 serviceRegistration = bundleContext.registerService(SERVICE_NAMES, resolver, serviceProperties);
+                proxyTargetLocatorFactoryTracker = new ProxyTargetLocatorFactoryTracker(bundleContext);
+                proxyTargetLocatorFactoryTracker.open();
+                bundleAnalysingComponentInstantiationListener =
+                    new BundleAnalysingComponentInstantiationListener(bundleContext, injectionSource,
+                        proxyTargetLocatorFactoryTracker);
             }
         }
     }
@@ -131,6 +136,8 @@ public final class BundleInjectionProviderHelper {
         synchronized (lock) {
             if (serviceRegistration != null) {
                 serviceRegistration.unregister();
+                proxyTargetLocatorFactoryTracker.close();
+                proxyTargetLocatorFactoryTracker = null;
                 serviceRegistration = null;
             }
         }

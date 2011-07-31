@@ -50,4 +50,9 @@ public interface IProxyTargetLocator extends IClusterable {
      * @return retrieved object
      */
     Object locateProxyTarget();
+
+    boolean hasApplicationContext();
+
+    boolean canHandleInjectionSource(String injectionSourceDefinition);
+
 }

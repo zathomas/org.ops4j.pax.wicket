@@ -15,6 +15,12 @@
  */
 package org.ops4j.pax.wicket.internal.injection;
 
+import java.util.Collection;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+
 import org.ops4j.pax.wicket.api.Constants;
 import org.ops4j.pax.wicket.api.NoBeanAvailableForInjectionException;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
@@ -25,8 +31,6 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.*;
 
 public class BundleDelegatingComponentInstanciationListener implements PaxWicketInjector,
         InternalBundleDelegationProvider {
@@ -41,9 +45,13 @@ public class BundleDelegatingComponentInstanciationListener implements PaxWicket
         new HashMap<String, BundleAnalysingComponentInstantiationListener>();
     private ServiceRegistration serviceRegistration;
 
-    public BundleDelegatingComponentInstanciationListener(BundleContext paxWicketBundleContext, String applicationName) {
+    private final ProxyTargetLocatorFactoryTracker targetLocatorFactoryTracker;
+
+    public BundleDelegatingComponentInstanciationListener(BundleContext paxWicketBundleContext, String applicationName,
+            ProxyTargetLocatorFactoryTracker targetLocatorFactoryTracker) {
         this.paxWicketBundleContext = paxWicketBundleContext;
         this.applicationName = applicationName;
+        this.targetLocatorFactoryTracker = targetLocatorFactoryTracker;
     }
 
     public String getApplicationName() {
@@ -69,7 +77,8 @@ public class BundleDelegatingComponentInstanciationListener implements PaxWicket
             throw new IllegalStateException("Cannot add any bundle to listener while not started.");
         }
         listeners.put(bundle.getSymbolicName(),
-            new BundleAnalysingComponentInstantiationListener(bundle.getBundleContext(), injectionSource));
+            new BundleAnalysingComponentInstantiationListener(bundle.getBundleContext(), injectionSource,
+                targetLocatorFactoryTracker));
     }
 
     public void removeBundle(Bundle bundle) {

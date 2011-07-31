@@ -18,8 +18,11 @@ package org.ops4j.pax.wicket.internal.injection;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import net.sf.cglib.proxy.Factory;
 
@@ -38,11 +41,14 @@ public class BundleAnalysingComponentInstantiationListener extends AbstractPaxWi
     private final BundleContext bundleContext;
     private String bundleResources = "";
     private final String defaultInjectionSource;
+    private final ProxyTargetLocatorFactoryTracker targetLocatorFactoryTracker;
 
     @SuppressWarnings("unchecked")
-    public BundleAnalysingComponentInstantiationListener(BundleContext bundleContext, String defaultInjectionSource) {
+    public BundleAnalysingComponentInstantiationListener(BundleContext bundleContext, String defaultInjectionSource,
+            ProxyTargetLocatorFactoryTracker targetLocatorFactoryTracker) {
         this.bundleContext = bundleContext;
         this.defaultInjectionSource = defaultInjectionSource;
+        this.targetLocatorFactoryTracker = targetLocatorFactoryTracker;
         Enumeration<URL> entries = bundleContext.getBundle().findEntries("/", "*.class", true);
         while (entries.hasMoreElements()) {
             String urlRepresentation =
@@ -109,48 +115,50 @@ public class BundleAnalysingComponentInstantiationListener extends AbstractPaxWi
             return null;
         }
         PaxWicketBean annotation = field.getAnnotation(PaxWicketBean.class);
-        AbstractProxyTargetLocator<?> springBeanTargetLocator =
-            resolveSpringBeanTargetLocator(field, page, annotation, overwrites);
-        AbstractProxyTargetLocator<?> blueprintBeanTargetLocator =
-            resolveBlueprintBeanTargetLocator(field, page, annotation, overwrites);
+        List<IProxyTargetLocator> targetLocators =
+            targetLocatorFactoryTracker.getAllProxyTargetLocators(field, page, annotation, overwrites);
         if (PaxWicketBean.INJECTION_SOURCE_SPRING.equals(injectionSource)) {
-            return springBeanTargetLocator;
+            return findLocatorForInjectionSource(injectionSource, targetLocators);
         }
         if (PaxWicketBean.INJECTION_SOURCE_BLUEPRINT.equals(injectionSource)) {
-            return blueprintBeanTargetLocator;
+            return findLocatorForInjectionSource(injectionSource, targetLocators);
         }
         if (PaxWicketBean.INJECTION_SOURCE_SCAN.equals(injectionSource)) {
-            boolean springBeanTargetLocatorHasApplicationContext = springBeanTargetLocator.hasApplicationContext();
-            boolean blueprintBeanTargetLocatorHasApplicationContext =
-                blueprintBeanTargetLocator.hasApplicationContext();
-            if (springBeanTargetLocatorHasApplicationContext && blueprintBeanTargetLocatorHasApplicationContext) {
-                throw new IllegalStateException(
-                    "INJECTION_SOURCE_SCAN cannot be used if spring & blueprint context exist.");
+            Map<IProxyTargetLocator, Boolean> locatorsWithApplicationContext =
+                new HashMap<IProxyTargetLocator, Boolean>();
+            for (IProxyTargetLocator proxyTargetLocator : targetLocators) {
+                locatorsWithApplicationContext.put(proxyTargetLocator, proxyTargetLocator.hasApplicationContext());
             }
-            if (!springBeanTargetLocatorHasApplicationContext && !blueprintBeanTargetLocatorHasApplicationContext) {
+            Set<Entry<IProxyTargetLocator, Boolean>> locatorEntries = locatorsWithApplicationContext.entrySet();
+            boolean foundOneAlready = false;
+            IProxyTargetLocator foundProxyTargetLocatorWithApplicationContext = null;
+            for (Entry<IProxyTargetLocator, Boolean> hasLocatorApplicationContext : locatorEntries) {
+                if (hasLocatorApplicationContext.getValue() && !foundOneAlready) {
+                    foundOneAlready = true;
+                    foundProxyTargetLocatorWithApplicationContext = hasLocatorApplicationContext.getKey();
+                } else if (hasLocatorApplicationContext.getValue() && foundOneAlready) {
+                    throw new IllegalStateException(
+                        "INJECTION_SOURCE_SCAN cannot be used if more than one applicationContext exist.");
+                }
+            }
+            if (!foundOneAlready) {
                 throw new IllegalStateException(
                     "INJECTION_SOURCE_SCAN cannot be used with neither blueprint nor spring context");
             }
-            if (springBeanTargetLocatorHasApplicationContext) {
-                return springBeanTargetLocator;
-            }
-            if (blueprintBeanTargetLocatorHasApplicationContext) {
-                return blueprintBeanTargetLocator;
-            }
+            return foundProxyTargetLocatorWithApplicationContext;
         }
         throw new IllegalStateException(String.format("No injection source found for field [%s] in class [%s]",
             field.getName(), page.getName()));
     }
 
-    private AbstractProxyTargetLocator<?> resolveSpringBeanTargetLocator(Field field, Class<?> page,
-            PaxWicketBean annotation, Map<String, String> overwrites) {
-        return new SpringBeanProxyTargetLocator(bundleContext, annotation, getBeanType(field), page, overwrites);
-    }
-
-    private AbstractProxyTargetLocator<?> resolveBlueprintBeanTargetLocator(Field field, Class<?> page,
-            PaxWicketBean annotation,
-            Map<String, String> overwrites) {
-        return new BlueprintBeanProxyTargetLocator(bundleContext, annotation, getBeanType(field), page, overwrites);
+    private IProxyTargetLocator findLocatorForInjectionSource(String injectionSource,
+            List<IProxyTargetLocator> targetLocators) {
+        for (IProxyTargetLocator proxyTargetLocator : targetLocators) {
+            if (proxyTargetLocator.canHandleInjectionSource(injectionSource)) {
+                return proxyTargetLocator;
+            }
+        }
+        throw new IllegalStateException(injectionSource + " cannot be handled by registered injection providers.");
     }
 
 }
