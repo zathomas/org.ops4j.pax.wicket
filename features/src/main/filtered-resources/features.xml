@@ -30,6 +30,12 @@
   <feature name="wicket-spring" version="${project.version}">
     <feature>wicket</feature>
     <feature>spring-dm</feature>
+    <bundle>mvn:org.ops4j.pax.wicket.injection/org.ops4j.pax.wicket.injection.spring</bundle>
+  </feature>
+
+  <feature name="wicket-aries" version="${project.version}">
+    <feature>wicket</feature>
+    <bundle>mvn:org.ops4j.pax.wicket.injection/org.ops4j.pax.wicket.injection.aries</bundle>
   </feature>
 
 </features>
