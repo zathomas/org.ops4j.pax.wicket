@@ -49,14 +49,14 @@ public class ProxyTargetLocatorFactoryTracker extends ServiceTracker {
         super.remove(reference);
     }
 
-    public List<IProxyTargetLocator> getAllProxyTargetLocators(Field field, Class<?> beanType, Class<?> parent,
-            PaxWicketBean annotation, Map<String, String> overwrites) {
+    public List<IProxyTargetLocator> getAllProxyTargetLocators(BundleContext bundleContext, Field field,
+            Class<?> beanType, Class<?> parent, PaxWicketBean annotation, Map<String, String> overwrites) {
         List<IProxyTargetLocator> targetLocators = new ArrayList<IProxyTargetLocator>();
         synchronized (factories) {
             Collection<ProxyTargetLocatorFactory> values = factories.values();
             for (ProxyTargetLocatorFactory proxyTargetLocatorFactory : values) {
-                targetLocators.add(proxyTargetLocatorFactory.createProxyTargetLocator(field, beanType, parent,
-                    annotation, overwrites));
+                targetLocators.add(proxyTargetLocatorFactory.createProxyTargetLocator(bundleContext, field, beanType,
+                    parent, annotation, overwrites));
             }
         }
         return Collections.unmodifiableList(targetLocators);
