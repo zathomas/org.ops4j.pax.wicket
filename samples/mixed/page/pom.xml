@@ -85,6 +85,10 @@
       <artifactId>org.ops4j.pax.wicket.common</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket</artifactId>
+    </dependency>
     <!-- Internal requirement since the API used is located in that bundle -->
     <dependency>
       <groupId>org.ops4j.pax.wicket.samples.mixed</groupId>
