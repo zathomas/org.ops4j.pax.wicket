@@ -35,7 +35,7 @@ public abstract class PaxWicketIntegrationTest {
 
     protected static final String WEBUI_PORT = "9081";
     protected static final String LOG_LEVEL = "WARN";
-    protected static final String SYMBOLIC_NAME_PAX_WICKET_SERVICE = "org.ops4j.pax.wicket.service";
+    protected static final String SYMBOLIC_NAME_PAX_WICKET_SERVICE = "org.ops4j.pax.wicket.common";
 
     @Configuration
     public final Option[] configureProvisions() {
@@ -83,12 +83,12 @@ public abstract class PaxWicketIntegrationTest {
 
     /**
      * Return bundle given the symbolic name. Returns {@code null} if not found.
-     * 
+     *
      * @param bundleContext Bundle context. This argument must not be {@code null}.
      * @param symbolicName Bundle symbolic name. This argument must not be {@code null}.
-     * 
+     *
      * @return The bundle given the symbolic name.
-     * 
+     *
      * @since 0.5.5
      */
     protected final Bundle getBundleBySymbolicName(BundleContext bundleContext, String symbolicName) {
@@ -105,11 +105,11 @@ public abstract class PaxWicketIntegrationTest {
 
     /**
      * Returns the pax wicket service bundle.
-     * 
+     *
      * @param bundleContext Bundle context. This argument must not be {@code null}.
-     * 
+     *
      * @return The pax wicket service bundle.
-     * 
+     *
      * @since 0.5.5
      */
     protected final Bundle getPaxWicketServiceBundle(BundleContext bundleContext) {

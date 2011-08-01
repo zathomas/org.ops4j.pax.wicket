@@ -34,7 +34,7 @@ import org.osgi.framework.BundleException;
 
 /**
  * {@code LifecycleTest} tests pax wicket service lifecycle.
- * 
+ *
  * @author edward.yakop@gmail.com
  * @since 0.5.4
  */
@@ -44,13 +44,18 @@ public final class LifecycleTest extends PaxWicketIntegrationTest {
 
     @Configuration
     public final Option[] configureAdditionalProvision() {
-        return options(provision(mavenBundle().groupId("org.ops4j.pax.wicket")
-            .artifactId("org.ops4j.pax.wicket.service").versionAsInProject()));
+        return options(
+            provision(mavenBundle().groupId("org.ops4j.pax.wicket.bundle14")
+                .artifactId("org.ops4j.pax.wicket.bundle14.core").versionAsInProject()),
+            provision(mavenBundle().groupId("org.ops4j.pax.wicket")
+                .artifactId("org.ops4j.pax.wicket.impl14").versionAsInProject()),
+            provision(mavenBundle().groupId("org.ops4j.pax.wicket")
+                    .artifactId("org.ops4j.pax.wicket.common").versionAsInProject()));
     }
 
     /**
      * Tests stopping pax-wicket service bundle.
-     * 
+     *
      * @since 0.5.4
      */
     @Test

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <parent>
     <groupId>org.ops4j.pax.wicket</groupId>
@@ -56,8 +57,32 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.ops4j.pax.wicket.bundle14</groupId> 
+      <artifactId>org.ops4j.pax.wicket.bundle14.core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.ops4j.pax.wicket</groupId>
       <artifactId>org.ops4j.pax.wicket.common</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.ops4j.pax.wicket</groupId>
+      <artifactId>org.ops4j.pax.wicket.impl14</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.ops4j.pax.wicket.injection</groupId>
+      <artifactId>org.ops4j.pax.wicket.injection.aries</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.ops4j.pax.wicket.injection</groupId>
+      <artifactId>org.ops4j.pax.wicket.injection.spring</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -72,7 +97,7 @@
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
-     <dependency>
+    <dependency>
       <groupId>org.ops4j.pax.wicket.samples.blueprint</groupId>
       <artifactId>org.ops4j.pax.wicket.samples.blueprint.simple</artifactId>
       <version>${project.version}</version>
@@ -84,7 +109,7 @@
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
-     <dependency>
+    <dependency>
       <groupId>org.ops4j.pax.wicket.samples.springdm</groupId>
       <artifactId>org.ops4j.pax.wicket.samples.springdm.simple</artifactId>
       <version>${project.version}</version>

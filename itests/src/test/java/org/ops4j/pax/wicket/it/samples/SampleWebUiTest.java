@@ -49,13 +49,21 @@ public class SampleWebUiTest extends PaxWicketIntegrationTest {
                 .versionAsInProject()),
             provision(mavenBundle().groupId("org.springframework.osgi").artifactId("spring-osgi-annotation")
                 .versionAsInProject()),
-            provision(mavenBundle().groupId("org.ops4j.pax.wicket").artifactId("org.ops4j.pax.wicket.service")
-                .versionAsInProject()),
             provision(mavenBundle().groupId("org.apache.aries").artifactId("org.apache.aries.util")
                 .versionAsInProject()),
             provision(mavenBundle().groupId("org.apache.aries.proxy").artifactId("org.apache.aries.proxy")
                 .versionAsInProject()),
             provision(mavenBundle().groupId("org.apache.aries.blueprint").artifactId("org.apache.aries.blueprint")
+                .versionAsInProject()),
+            provision(mavenBundle().groupId("org.ops4j.pax.wicket.bundle14").artifactId("org.ops4j.pax.wicket.bundle14.core")
+                .versionAsInProject()),
+            provision(mavenBundle().groupId("org.ops4j.pax.wicket").artifactId("org.ops4j.pax.wicket.common")
+                .versionAsInProject()),
+            provision(mavenBundle().groupId("org.ops4j.pax.wicket").artifactId("org.ops4j.pax.wicket.impl14")
+                .versionAsInProject()),
+            provision(mavenBundle().groupId("org.ops4j.pax.wicket.injection").artifactId("org.ops4j.pax.wicket.injection.spring")
+                .versionAsInProject()),
+            provision(mavenBundle().groupId("org.ops4j.pax.wicket.injection").artifactId("org.ops4j.pax.wicket.injection.aries")
                 .versionAsInProject()),
             provision(mavenBundle().groupId("org.ops4j.pax.wicket.samples")
                 .artifactId("org.ops4j.pax.wicket.samples.navigation").versionAsInProject()),

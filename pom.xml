@@ -191,7 +191,7 @@
     <!-- OPS4J Pax Wicket Various Samples -->
     <module>samples</module>
     <!-- OPS4J Pax Wicket Integration Tests -->
-    <!--<module>itests</module>-->
+    <module>itests</module>
   </modules>
 
   <dependencyManagement>

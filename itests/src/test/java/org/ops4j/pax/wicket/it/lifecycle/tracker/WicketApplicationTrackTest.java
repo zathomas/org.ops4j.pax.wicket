@@ -39,8 +39,13 @@ public final class WicketApplicationTrackTest extends PaxWicketIntegrationTest {
     @Configuration
     public final Option[] configureAdditionalProvision() {
         return options(
-            provision(mavenBundle().groupId("org.ops4j.pax.wicket").artifactId("org.ops4j.pax.wicket.service")
-                .versionAsInProject()), provision(mavenBundle().groupId("org.ops4j.pax.wicket.samples")
+            provision(mavenBundle().groupId("org.ops4j.pax.wicket.bundle14")
+                .artifactId("org.ops4j.pax.wicket.bundle14.core").versionAsInProject()),
+            provision(mavenBundle().groupId("org.ops4j.pax.wicket")
+                 .artifactId("org.ops4j.pax.wicket.common").versionAsInProject()),
+            provision(mavenBundle().groupId("org.ops4j.pax.wicket")
+                 .artifactId("org.ops4j.pax.wicket.impl14").versionAsInProject()),
+            provision(mavenBundle().groupId("org.ops4j.pax.wicket.samples")
                 .artifactId("org.ops4j.pax.wicket.samples.navigation").versionAsInProject()));
     }
 
