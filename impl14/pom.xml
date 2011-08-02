@@ -76,6 +76,7 @@
               org.apache.wicket.*;version="${impl14.wicket.range}",
               org.ops4j.pax.wicket.api;version="${project.version}",
               org.ops4j.pax.wicket.util.serialization.deployment;version="${project.version}",
+              org.ops4j.pax.wicket.util.injection;version="${project.version}",
               org.osgi.framework;version="1.4",
               org.osgi.service.*;version="1",
               org.osgi.util.*;version="1",

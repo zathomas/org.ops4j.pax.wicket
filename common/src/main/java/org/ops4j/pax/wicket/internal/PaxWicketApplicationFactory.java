@@ -27,7 +27,6 @@ import org.apache.wicket.protocol.http.IWebApplicationFactory;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WicketFilter;
 import org.ops4j.pax.wicket.api.Constants;
-import org.ops4j.pax.wicket.internal.injection.ComponentInstantiationListenerFacade;
 import org.ops4j.pax.wicket.internal.injection.DelegatingComponentInstanciationListener;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -46,10 +45,12 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
     private final Map<String, String> contextParams;
     private final File tmpDir;
     private final FilterDelegator filterDelegator;
+    private final ComponentInstantiationRegistratorTracker componentInstantiationRegistratorTracker;
 
     @SuppressWarnings("unchecked")
     public static PaxWicketApplicationFactory createPaxWicketApplicationFactory(BundleContext bundleContext,
-            IWebApplicationFactory webApplicationFactory, ServiceReference reference) {
+            IWebApplicationFactory webApplicationFactory, ServiceReference reference,
+            ComponentInstantiationRegistratorTracker componentInstantiationRegistratorTracker) {
         File tmpDir = retrieveTmpFile(bundleContext);
         tmpDir.mkdirs();
         String mountPoint = (String) reference.getProperty(Constants.MOUNTPOINT);
@@ -58,7 +59,7 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
         FilterDelegator filterDelegator =
             new FilterDelegator(reference.getBundle().getBundleContext(), applicationName);
         return new PaxWicketApplicationFactory(bundleContext, webApplicationFactory, applicationName, mountPoint,
-            contextParams, tmpDir, filterDelegator);
+            contextParams, tmpDir, filterDelegator, componentInstantiationRegistratorTracker);
     }
 
     private static File retrieveTmpFile(BundleContext bundleContext) {
@@ -71,7 +72,8 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
 
     private PaxWicketApplicationFactory(BundleContext bundleContext, IWebApplicationFactory webApplicationFactory,
             String applicationName, String mountPoint, Map<String, String> contextParams, File tmpDir,
-            FilterDelegator filterDelegator) {
+            FilterDelegator filterDelegator,
+            ComponentInstantiationRegistratorTracker componentInstantiationRegistratorTracker) {
         this.bundleContext = bundleContext;
         this.webApplicationFactory = webApplicationFactory;
         this.applicationName = applicationName;
@@ -79,6 +81,7 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
         this.contextParams = contextParams;
         this.tmpDir = tmpDir;
         this.filterDelegator = filterDelegator;
+        this.componentInstantiationRegistratorTracker = componentInstantiationRegistratorTracker;
     }
 
     public boolean isValidFactory() {
@@ -124,7 +127,7 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
 
         /**
          * Checks if the method is derived from Object.equals()
-         * 
+         *
          * @param method method being tested
          * @return true if the method is derived from Object.equals(), false otherwise
          */
@@ -135,7 +138,7 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
 
         /**
          * Checks if the method is derived from Object.hashCode()
-         * 
+         *
          * @param method method being tested
          * @return true if the method is defined from Object.hashCode(), false otherwise
          */
@@ -146,7 +149,7 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
 
         /**
          * Checks if the method is derived from Object.toString()
-         * 
+         *
          * @param method method being tested
          * @return true if the method is defined from Object.toString(), false otherwise
          */
@@ -157,7 +160,7 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
 
         /**
          * Checks if the method is derived from Object.finalize()
-         * 
+         *
          * @param method method being tested
          * @return true if the method is defined from Object.finalize(), false otherwise
          */
@@ -187,8 +190,12 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
             pageFactory = new PaxWicketPageFactory(bundleContext, applicationName);
             pageFactory.initialize();
 
-            application.addComponentInstantiationListener(new ComponentInstantiationListenerFacade(
-                delegatingComponentInstanciationListener));
+            if (!componentInstantiationRegistratorTracker.registerPaxWicketInjectorForApplication(
+                delegatingComponentInstanciationListener, application)) {
+                throw new IllegalStateException(
+                    "It was not possible to register the component instanciation listener to your application. "
+                            + "Maybe you're using the wrong pax-wicket impl version?");
+            }
             application.getApplicationSettings().setClassResolver(delegatingClassResolver);
             application.getSessionSettings().setPageFactory(pageFactory);
             // TODO [PAXWICKET-228] What should happen if two are created?

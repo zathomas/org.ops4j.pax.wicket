@@ -35,10 +35,9 @@ public final class Activator implements BundleActivator {
     private static BundleContext bundleContext;
 
     private PaxWicketBundleListener paxWicketBundleListener;
-
     private BundleDelegatingExtensionTracker bundleDelegatingExtensionTracker;
-
     private ProxyTargetLocatorFactoryTracker proxyTargetLocatorFactoryTracker;
+    private ComponentInstantiationRegistratorTracker componentInstantiationRegistratorTracker;
 
     public final void start(BundleContext context) throws Exception {
         if (LOGGER.isDebugEnabled()) {
@@ -53,7 +52,11 @@ public final class Activator implements BundleActivator {
         httpTracker = new HttpTracker(context);
         httpTracker.open();
 
-        applicationFactoryTracker = new PaxWicketAppFactoryTracker(context, httpTracker);
+        componentInstantiationRegistratorTracker = new ComponentInstantiationRegistratorTracker(context);
+        componentInstantiationRegistratorTracker.open(true);
+
+        applicationFactoryTracker =
+            new PaxWicketAppFactoryTracker(context, httpTracker, componentInstantiationRegistratorTracker);
         applicationFactoryTracker.open(true);
 
         proxyTargetLocatorFactoryTracker = new ProxyTargetLocatorFactoryTracker(context);
@@ -81,13 +84,15 @@ public final class Activator implements BundleActivator {
 
     public final void stop(BundleContext context) throws Exception {
         context.removeBundleListener(paxWicketBundleListener);
-        httpTracker.close();
         applicationFactoryTracker.close();
+        httpTracker.close();
+        componentInstantiationRegistratorTracker.close();
         proxyTargetLocatorFactoryTracker.close();
         bundleDelegatingExtensionTracker.close();
 
-        httpTracker = null;
         applicationFactoryTracker = null;
+        httpTracker = null;
+        componentInstantiationRegistratorTracker = null;
         proxyTargetLocatorFactoryTracker = null;
         bundleDelegatingExtensionTracker = null;
         bundleContext = null;
