@@ -24,11 +24,11 @@ import org.apache.wicket.protocol.http.WicketFilter;
  * webapplication for pax wicket. You only have to set a {@link WebApplication} via the setter or the constructur and
  * register it as a service. Please keep in mind that you have to set at least the the "pax.wicket.mountpoint" and
  * "pax.wicket.applicationname" properties to your service to be started in pax-wicket.
- * 
+ *
  * This application does simply create a new class of your {@link WebApplication} each time requested. Please be aware
  * that the {@link WebApplication}, as well as your homepage class both have to be reachable via the same classloader
  * you expose this class!
- * 
+ *
  */
 public class SimpleWebApplicationFactory implements IWebApplicationFactory {
 
@@ -55,6 +55,11 @@ public class SimpleWebApplicationFactory implements IWebApplicationFactory {
 
     public void setWicketApplication(Class<? extends WebApplication> wicketApplication) {
         this.wicketApplication = wicketApplication;
+    }
+
+    public void destroy(WicketFilter filter) {
+        // Wicket 1.5 requires us to implement this method. Since it does not matter for Wicket14 we simple add it here.
+        // Nothing special to do here; I assume at least
     }
 
 }

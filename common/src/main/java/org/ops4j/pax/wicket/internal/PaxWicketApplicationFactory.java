@@ -243,4 +243,9 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
         return filterDelegator;
     }
 
+    public void destroy(WicketFilter filter) {
+        // Wicket 1.5 requires us to implement this method. Since it does not matter for Wicket14 we simple add it here.
+        // nothing to do here I assume at least...
+    }
+
 }
