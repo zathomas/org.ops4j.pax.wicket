@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.util;
+package org.ops4j.pax.wicket.impl15.util;
 
 import java.lang.reflect.UndeclaredThrowableException;
 
 import org.apache.wicket.Page;
-import org.apache.wicket.PageParameters;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.osgi.framework.BundleContext;
 
 public class DefaultPageFactory<T extends Page> extends AbstractPageFactory<T> {

@@ -30,6 +30,8 @@ import org.ops4j.pax.wicket.api.Constants;
 import org.ops4j.pax.wicket.internal.injection.DelegatingComponentInstanciationListener;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An internal wrapper for the {@link IWebApplicationFactory} exported by clients who want to register an application.
@@ -37,6 +39,8 @@ import org.osgi.framework.ServiceReference;
  * application factory with the classloading, injection and other tricks required to run the application.
  */
 public class PaxWicketApplicationFactory implements IWebApplicationFactory {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PaxWicketApplicationFactory.class);
 
     private final BundleContext bundleContext;
     private final IWebApplicationFactory webApplicationFactory;
@@ -46,11 +50,13 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
     private final File tmpDir;
     private final FilterDelegator filterDelegator;
     private final ComponentInstantiationRegistratorTracker componentInstantiationRegistratorTracker;
+    private final PageFactoryInitiatorTracker pageFactoryInitiatorTracker;
 
     @SuppressWarnings("unchecked")
     public static PaxWicketApplicationFactory createPaxWicketApplicationFactory(BundleContext bundleContext,
             IWebApplicationFactory webApplicationFactory, ServiceReference reference,
-            ComponentInstantiationRegistratorTracker componentInstantiationRegistratorTracker) {
+            ComponentInstantiationRegistratorTracker componentInstantiationRegistratorTracker,
+            PageFactoryInitiatorTracker pageFactoryInitiatorTracker) {
         File tmpDir = retrieveTmpFile(bundleContext);
         tmpDir.mkdirs();
         String mountPoint = (String) reference.getProperty(Constants.MOUNTPOINT);
@@ -59,7 +65,8 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
         FilterDelegator filterDelegator =
             new FilterDelegator(reference.getBundle().getBundleContext(), applicationName);
         return new PaxWicketApplicationFactory(bundleContext, webApplicationFactory, applicationName, mountPoint,
-            contextParams, tmpDir, filterDelegator, componentInstantiationRegistratorTracker);
+            contextParams, tmpDir, filterDelegator, componentInstantiationRegistratorTracker,
+            pageFactoryInitiatorTracker);
     }
 
     private static File retrieveTmpFile(BundleContext bundleContext) {
@@ -73,7 +80,8 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
     private PaxWicketApplicationFactory(BundleContext bundleContext, IWebApplicationFactory webApplicationFactory,
             String applicationName, String mountPoint, Map<String, String> contextParams, File tmpDir,
             FilterDelegator filterDelegator,
-            ComponentInstantiationRegistratorTracker componentInstantiationRegistratorTracker) {
+            ComponentInstantiationRegistratorTracker componentInstantiationRegistratorTracker,
+            PageFactoryInitiatorTracker pageFactoryInitiatorTracker) {
         this.bundleContext = bundleContext;
         this.webApplicationFactory = webApplicationFactory;
         this.applicationName = applicationName;
@@ -82,6 +90,7 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
         this.tmpDir = tmpDir;
         this.filterDelegator = filterDelegator;
         this.componentInstantiationRegistratorTracker = componentInstantiationRegistratorTracker;
+        this.pageFactoryInitiatorTracker = pageFactoryInitiatorTracker;
     }
 
     public boolean isValidFactory() {
@@ -99,7 +108,6 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
 
     private class WebApplicationWrapper implements MethodInterceptor {
 
-        private PaxWicketPageFactory pageFactory;
         private DelegatingClassResolver delegatingClassResolver;
         private DelegatingComponentInstanciationListener delegatingComponentInstanciationListener;
 
@@ -119,7 +127,7 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
             } else if (isInitMethod(method)) {
                 handleInit((WebApplication) object);
             } else if (isOnDestoryMethod(method)) {
-                handleOnDestroy();
+                handleOnDestroy((WebApplication) object);
             }
             method.setAccessible(true);
             return methodProxy.invokeSuper(object, args);
@@ -180,34 +188,38 @@ public class PaxWicketApplicationFactory implements IWebApplicationFactory {
         }
 
         private void handleInit(WebApplication application) {
-            delegatingClassResolver = new DelegatingClassResolver(bundleContext, applicationName);
-            delegatingClassResolver.intialize();
-
-            delegatingComponentInstanciationListener =
-                new DelegatingComponentInstanciationListener(bundleContext, applicationName);
-            delegatingComponentInstanciationListener.intialize();
-
-            pageFactory = new PaxWicketPageFactory(bundleContext, applicationName);
-            pageFactory.initialize();
-
-            if (!componentInstantiationRegistratorTracker.registerPaxWicketInjectorForApplication(
-                delegatingComponentInstanciationListener, application)) {
-                throw new IllegalStateException(
-                    "It was not possible to register the component instanciation listener to your application. "
-                            + "Maybe you're using the wrong pax-wicket impl version?");
-            }
-            application.getApplicationSettings().setClassResolver(delegatingClassResolver);
-            application.getSessionSettings().setPageFactory(pageFactory);
+            initializeInjectionComponent(application);
+            initializePageFactory(application);
+            initializeClassResolver(application);
             // TODO [PAXWICKET-228] What should happen if two are created?
             // TODO: [PAXWICKET-255] reintroduce
             // mounterTracker = new PageMounterTracker(bundleContext, application, getApplicationName());
             // mounterTracker.open();
         }
 
-        private void handleOnDestroy() {
-            pageFactory.dispose();
+        private void initializeClassResolver(WebApplication application) {
+            delegatingClassResolver = new DelegatingClassResolver(bundleContext, applicationName);
+            delegatingClassResolver.intialize();
+            application.getApplicationSettings().setClassResolver(delegatingClassResolver);
+        }
+
+        private void initializePageFactory(WebApplication application) {
+            pageFactoryInitiatorTracker.initiatePageFactoryForWicketApplication(application,applicationName);
+        }
+
+        private void initializeInjectionComponent(WebApplication application) {
+            delegatingComponentInstanciationListener =
+                new DelegatingComponentInstanciationListener(bundleContext, applicationName);
+            delegatingComponentInstanciationListener.intialize();
+            componentInstantiationRegistratorTracker.registerPaxWicketInjectorForApplication(
+                delegatingComponentInstanciationListener, application);
+        }
+
+        private void handleOnDestroy(WebApplication application) {
             delegatingClassResolver.dispose();
             delegatingComponentInstanciationListener.dispose();
+            componentInstantiationRegistratorTracker.removePaxWicketInjectorForApplication(application);
+            pageFactoryInitiatorTracker.disposePageFactoryForWicketApplication(applicationName);
             // TODO: [PAXWICKET-255] reintroduce
             // mounterTracker.close();
             filterDelegator.dispose();

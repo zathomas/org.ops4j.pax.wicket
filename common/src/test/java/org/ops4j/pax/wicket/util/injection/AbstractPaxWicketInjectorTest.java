@@ -24,11 +24,9 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.markup.MarkupStream;
 import org.junit.Before;
 import org.junit.Test;
 import org.ops4j.pax.wicket.api.PaxWicketBean;
-import org.ops4j.pax.wicket.util.injection.AbstractPaxWicketInjector;
 
 public class AbstractPaxWicketInjectorTest {
 
@@ -47,8 +45,10 @@ public class AbstractPaxWicketInjectorTest {
         }
 
         @Override
-        protected void onRender(MarkupStream markupStream) {
+        protected void onRender() {
+
         }
+
     }
 
     @SuppressWarnings("serial")

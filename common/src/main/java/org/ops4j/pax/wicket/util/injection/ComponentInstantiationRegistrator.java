@@ -15,4 +15,9 @@ public interface ComponentInstantiationRegistrator {
      */
     boolean registerPaxWicketInjectorForApplication(PaxWicketInjector injector, WebApplication application);
 
+    /**
+     * The same service which regsitered the listener has to made sure that it is removed again.
+     */
+    boolean disposePaxWicketInjectorForApplictation(WebApplication application);
+
 }

@@ -33,13 +33,6 @@
     </wicket:destinations>
   </wicket:contentSource>
 
-  <wicket:page id="newPage" pageId="pageId" applicationName="applicationName" pageName="pageName" pageClass="pageClass">
-    <wicket:overwrites>
-      <wicket:overwrite originalBeanId="old1" newBeanId="new1" />
-      <wicket:overwrite originalBeanId="old2" newBeanId="new2" />
-    </wicket:overwrites>
-  </wicket:page>
-
   <wicket:application id="application" class="class" mountPoint="mountPoint" applicationName="applicationName" >
     <wicket:context-param>
       <wicket:param-name>name1</wicket:param-name>

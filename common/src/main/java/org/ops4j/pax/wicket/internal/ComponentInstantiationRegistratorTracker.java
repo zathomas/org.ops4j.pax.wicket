@@ -45,16 +45,32 @@ public class ComponentInstantiationRegistratorTracker extends ServiceTracker {
         super.remove(reference);
     }
 
-    public boolean registerPaxWicketInjectorForApplication(PaxWicketInjector injector, WebApplication application) {
+    public void registerPaxWicketInjectorForApplication(PaxWicketInjector injector, WebApplication application) {
         synchronized (registrationHandlers) {
             Collection<ComponentInstantiationRegistrator> values = registrationHandlers.values();
             for (ComponentInstantiationRegistrator componentInstantiationRegistrator : values) {
                 if (componentInstantiationRegistrator.registerPaxWicketInjectorForApplication(injector, application)) {
-                    return true;
+                    return;
                 }
             }
         }
-        return false;
+        throw new IllegalStateException(
+            "It was not possible to register the component instanciation listener to your application. "
+                    + "Maybe you're using the wrong pax-wicket impl version?");
+    }
+
+    public void removePaxWicketInjectorForApplication(WebApplication application) {
+        synchronized (registrationHandlers) {
+            Collection<ComponentInstantiationRegistrator> values = registrationHandlers.values();
+            for (ComponentInstantiationRegistrator componentInstantiationRegistrator : values) {
+                if (componentInstantiationRegistrator.disposePaxWicketInjectorForApplictation(application)) {
+                    return;
+                }
+            }
+        }
+        throw new IllegalStateException(
+            "It was not possible to dispose the component instanciation listener to your application. "
+                    + "Maybe you're using the wrong pax-wicket impl version?");
     }
 
 }

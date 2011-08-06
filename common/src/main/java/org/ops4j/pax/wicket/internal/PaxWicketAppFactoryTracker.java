@@ -47,12 +47,15 @@ public class PaxWicketAppFactoryTracker extends ServiceTracker {
     private final Map<ServiceReference, PaxWicketApplicationFactory> factories =
         new HashMap<ServiceReference, PaxWicketApplicationFactory>();
     private final ComponentInstantiationRegistratorTracker componentInstantiationRegistratorTracker;
+    private final PageFactoryInitiatorTracker pageFactoryInitiatorTracker;
 
     PaxWicketAppFactoryTracker(BundleContext context, HttpTracker httpTracker,
-            ComponentInstantiationRegistratorTracker componentInstantiationRegistratorTracker)
+            ComponentInstantiationRegistratorTracker componentInstantiationRegistratorTracker,
+            PageFactoryInitiatorTracker pageFactoryInitiatorTracker)
         throws IllegalArgumentException {
         super(context, SERVICE_NAME, null);
         this.componentInstantiationRegistratorTracker = componentInstantiationRegistratorTracker;
+        this.pageFactoryInitiatorTracker = pageFactoryInitiatorTracker;
 
         validateNotNull(httpTracker, "httpTracker");
         this.httpTracker = httpTracker;
@@ -63,7 +66,7 @@ public class PaxWicketAppFactoryTracker extends ServiceTracker {
         final IWebApplicationFactory factory = (IWebApplicationFactory) super.addingService(reference);
         PaxWicketApplicationFactory internalFactory =
             PaxWicketApplicationFactory.createPaxWicketApplicationFactory(context, factory, reference,
-                componentInstantiationRegistratorTracker);
+                componentInstantiationRegistratorTracker, pageFactoryInitiatorTracker);
         addApplication(reference, internalFactory);
         return factory;
     }
@@ -73,7 +76,7 @@ public class PaxWicketAppFactoryTracker extends ServiceTracker {
         removeApplication(reference);
         PaxWicketApplicationFactory internalFactory =
             PaxWicketApplicationFactory.createPaxWicketApplicationFactory(context, (IWebApplicationFactory) service,
-                reference, componentInstantiationRegistratorTracker);
+                reference, componentInstantiationRegistratorTracker, pageFactoryInitiatorTracker);
         addApplication(reference, internalFactory);
     }
 

@@ -37,7 +37,6 @@ public class BlueprintNamespaceHandler implements NamespaceHandler {
     public BlueprintNamespaceHandler() {
         namespaceRegistrations = new HashMap<String, AbstractBlueprintBeanDefinitionParser>();
         namespaceRegistrations.put("application", new BlueprintApplicationBeanDefinitionParser());
-        namespaceRegistrations.put("page", new BlueprintPageFactoryBeanDefinitionParser());
         namespaceRegistrations.put("classResolver", new BlueprintClassResolverDefinitionParser());
         namespaceRegistrations.put("injectionProvider", new BlueprintInjectionResolverDefinitionParser());
         namespaceRegistrations.put("filter", new BlueprintFilterFactoryBeanDefinitionParser());

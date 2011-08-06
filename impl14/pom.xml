@@ -83,6 +83,7 @@
               net.sf.cglib.proxy;version="${cglib.range}";resolution:=optional,
               net.sf.cglib.core;version="${cglib.range}";resolution:=optional,
               net.sf.cglib.reflect;version="${cglib.range}";resolution:=optional,
+              org.ops4j.pax.wicket.util,
               org.xml.sax,
               org.w3c.dom,
               !sun.*

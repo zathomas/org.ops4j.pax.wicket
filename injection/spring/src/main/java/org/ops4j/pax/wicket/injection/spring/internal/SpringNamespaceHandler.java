@@ -21,7 +21,6 @@ public class SpringNamespaceHandler extends NamespaceHandlerSupport {
 
     public void init() {
         registerBeanDefinitionParser("application", new SpringApplicationBeanDefinitionParser());
-        registerBeanDefinitionParser("page", new SpringPageFactoryBeanDefinitionParser());
         registerBeanDefinitionParser("classResolver", new SpringClassResolverDefinitionParser());
         registerBeanDefinitionParser("injectionProvider", new SpringInjectionResolverDefinitionParser());
         registerBeanDefinitionParser("filter", new SpringFilterFactoryBeanDefinitionParser());
