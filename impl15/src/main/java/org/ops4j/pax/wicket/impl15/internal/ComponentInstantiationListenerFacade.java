@@ -13,21 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.internal.injection;
+package org.ops4j.pax.wicket.impl15.internal;
 
 import org.apache.wicket.Component;
-import org.junit.Test;
-import org.mockito.Mockito;
+import org.apache.wicket.application.IComponentInstantiationListener;
 import org.ops4j.pax.wicket.api.PaxWicketInjector;
 
-public class ComponentInstantiationListenerFacadeTest {
+/**
+ * Simple wrapper transforming calls from a
+ */
+public class ComponentInstantiationListenerFacade implements IComponentInstantiationListener {
 
-    @Test
-    public void testCallToFacade_shouldBeForwardedToRealClass() {
-        Component component = Mockito.mock(Component.class);
-        PaxWicketInjector injector = Mockito.mock(PaxWicketInjector.class);
-        new ComponentInstantiationListenerFacade(injector).onInstantiation(component);
-        Mockito.verify(injector).inject(component);
+    private PaxWicketInjector toWrap;
+
+    public ComponentInstantiationListenerFacade(PaxWicketInjector toWrap) {
+        this.toWrap = toWrap;
+    }
+
+    public void onInstantiation(Component component) {
+        toWrap.inject(component);
     }
 
 }

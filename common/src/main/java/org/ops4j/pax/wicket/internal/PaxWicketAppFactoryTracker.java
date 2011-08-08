@@ -46,10 +46,16 @@ public class PaxWicketAppFactoryTracker extends ServiceTracker {
     private final HttpTracker httpTracker;
     private final Map<ServiceReference, PaxWicketApplicationFactory> factories =
         new HashMap<ServiceReference, PaxWicketApplicationFactory>();
+    private final ComponentInstantiationRegistratorTracker componentInstantiationRegistratorTracker;
+    private final PageFactoryInitiatorTracker pageFactoryInitiatorTracker;
 
-    PaxWicketAppFactoryTracker(BundleContext context, HttpTracker httpTracker)
+    PaxWicketAppFactoryTracker(BundleContext context, HttpTracker httpTracker,
+            ComponentInstantiationRegistratorTracker componentInstantiationRegistratorTracker,
+            PageFactoryInitiatorTracker pageFactoryInitiatorTracker)
         throws IllegalArgumentException {
         super(context, SERVICE_NAME, null);
+        this.componentInstantiationRegistratorTracker = componentInstantiationRegistratorTracker;
+        this.pageFactoryInitiatorTracker = pageFactoryInitiatorTracker;
 
         validateNotNull(httpTracker, "httpTracker");
         this.httpTracker = httpTracker;
@@ -59,7 +65,8 @@ public class PaxWicketAppFactoryTracker extends ServiceTracker {
     public final Object addingService(ServiceReference reference) {
         final IWebApplicationFactory factory = (IWebApplicationFactory) super.addingService(reference);
         PaxWicketApplicationFactory internalFactory =
-            PaxWicketApplicationFactory.createPaxWicketApplicationFactory(context, factory, reference);
+            PaxWicketApplicationFactory.createPaxWicketApplicationFactory(context, factory, reference,
+                componentInstantiationRegistratorTracker, pageFactoryInitiatorTracker);
         addApplication(reference, internalFactory);
         return factory;
     }
@@ -69,7 +76,7 @@ public class PaxWicketAppFactoryTracker extends ServiceTracker {
         removeApplication(reference);
         PaxWicketApplicationFactory internalFactory =
             PaxWicketApplicationFactory.createPaxWicketApplicationFactory(context, (IWebApplicationFactory) service,
-                reference);
+                reference, componentInstantiationRegistratorTracker, pageFactoryInitiatorTracker);
         addApplication(reference, internalFactory);
     }
 

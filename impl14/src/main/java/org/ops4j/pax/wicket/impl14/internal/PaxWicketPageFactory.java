@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.internal;
+package org.ops4j.pax.wicket.impl14.internal;
 
-import org.apache.wicket.IPageFactory;
-import org.apache.wicket.Page;
-import org.apache.wicket.PageParameters;
-import org.apache.wicket.WicketRuntimeException;
-import org.ops4j.pax.wicket.api.PageFactory;
-import org.osgi.framework.BundleContext;
-import org.osgi.util.tracker.ServiceTracker;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
-import static org.ops4j.lang.NullArgumentException.validateNotNull;
+import org.apache.wicket.IPageFactory;
+import org.apache.wicket.Page;
+import org.apache.wicket.PageParameters;
+import org.apache.wicket.WicketRuntimeException;
+import org.ops4j.pax.wicket.impl14.api.PageFactory;
+import org.osgi.framework.BundleContext;
+import org.osgi.util.tracker.ServiceTracker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class PaxWicketPageFactory implements IPageFactory {
 
@@ -42,9 +41,6 @@ public final class PaxWicketPageFactory implements IPageFactory {
     private ServiceTracker m_pageTracker;
 
     public PaxWicketPageFactory(BundleContext context, String applicationName) throws IllegalArgumentException {
-        validateNotNull(context, "context");
-        validateNotNull(applicationName, "applicationName");
-
         contents = new HashMap<Class<?>, PageFactory<?>>();
         bundleContext = context;
         this.applicationName = applicationName;
@@ -64,16 +60,14 @@ public final class PaxWicketPageFactory implements IPageFactory {
 
     /**
      * Creates a new page using a page class.
-     * 
+     *
      * @param pageClass The page class to instantiate
-     * 
+     *
      * @return The page
-     * 
+     *
      * @throws org.apache.wicket.WicketRuntimeException Thrown if the page cannot be constructed
      */
     public final <C extends Page> Page newPage(Class<C> pageClass) throws IllegalArgumentException {
-        validateNotNull(pageClass, "pageClass");
-
         return newPage(pageClass, null);
     }
 
@@ -81,18 +75,16 @@ public final class PaxWicketPageFactory implements IPageFactory {
      * Creates a new Page, passing PageParameters to the Page constructor if such a constructor exists. If no such
      * constructor exists and the parameters argument is null or empty, then any available default constructor will be
      * used.
-     * 
+     *
      * @param pageClass The class of Page to create
      * @param parameters Any parameters to pass to the Page's constructor
-     * 
+     *
      * @return The new page
-     * 
+     *
      * @throws org.apache.wicket.WicketRuntimeException Thrown if the page cannot be constructed
      */
     public final <C extends Page> Page newPage(Class<C> pageClass, PageParameters parameters)
         throws IllegalArgumentException {
-        validateNotNull(pageClass, "pageClass");
-
         PageFactory<?> content;
         synchronized (this) {
             content = contents.get(pageClass);
@@ -131,19 +123,15 @@ public final class PaxWicketPageFactory implements IPageFactory {
     }
 
     public void add(Class<?> pageClass, PageFactory<?> pageSource) throws IllegalArgumentException {
-        validateNotNull(pageClass, "pageClass");
-        validateNotNull(pageSource, "pageSource");
-
         synchronized (this) {
             contents.put(pageClass, pageSource);
         }
     }
 
     public final void remove(Class<?> pageClass) throws IllegalArgumentException {
-        validateNotNull(pageClass, "pageClass");
-
         synchronized (this) {
             contents.remove(pageClass);
         }
     }
+
 }

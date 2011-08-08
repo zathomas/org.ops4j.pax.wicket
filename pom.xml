@@ -55,11 +55,13 @@
     <felix.configadmin.version>1.2.8</felix.configadmin.version>
     <impl14.wicket.version>1.4.17</impl14.wicket.version>
     <impl14.wicket.range>[1.4,1.5)</impl14.wicket.range>
+    <impl15.wicket.version>1.5-RC5.1</impl15.wicket.version>
+    <impl15.wicket.range>[1.5,1.6)</impl15.wicket.range>
     <wicket.range>[1.4,1.6)</wicket.range>
     <release-paxwicket-altGitURL>scm:git:git@github.com:ops4j/org.ops4j.pax.wicket.git</release-paxwicket-altGitURL>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jetty.version>7.3.1.v20110307</jetty.version>
-    <pax.web.version>1.1.0</pax.web.version>
+    <pax.web.version>1.0.5</pax.web.version>
     <spring.osgi.version>1.2.1</spring.osgi.version>
     <spring.version>3.0.5.RELEASE</spring.version>
     <cglib.version>2.2_2</cglib.version>
@@ -186,12 +188,13 @@
     <module>bundle14</module>
     <!-- OPS4J Pax Wicket Version Dependent Implementations -->
     <module>impl14</module>
+    <module>impl15</module>
     <!-- OPS4J Pax Wicket Karaf Features File -->
     <module>features</module>
     <!-- OPS4J Pax Wicket Various Samples -->
     <module>samples</module>
     <!-- OPS4J Pax Wicket Integration Tests -->
-    <!--<module>itests</module>-->
+    <module>itests</module>
   </modules>
 
   <dependencyManagement>
@@ -521,6 +524,12 @@
         <groupId>org.ops4j.base</groupId>
         <artifactId>ops4j-base</artifactId>
         <version>1.2.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.wicket</groupId>
+        <artifactId>wicket</artifactId>
+        <type>pom</type>
+        <version>${impl15.wicket.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.wicket</groupId>

@@ -26,9 +26,7 @@
   </service>
   
   <service interface="org.ops4j.pax.wicket.util.proxy.ProxyTargetLocatorFactory">
-    <bean class="org.ops4j.pax.wicket.injection.aries.internal.BlueprintBeanProxyTargetLocatorFactory">
-        <property name="bundleContext" ref="blueprintBundleContext" />
-    </bean>
+    <bean class="org.ops4j.pax.wicket.injection.aries.internal.BlueprintBeanProxyTargetLocatorFactory" />
   </service>
 
 </blueprint>

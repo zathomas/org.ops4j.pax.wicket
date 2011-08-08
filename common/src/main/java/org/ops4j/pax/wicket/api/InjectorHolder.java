@@ -25,6 +25,10 @@ import org.slf4j.LoggerFactory;
 /**
  * A simple singleton class storing and retrieving {@link PaxWicketInjector}s. The {@link #getInjector()} method only
  * works in an PaxWicket-Enabled integration context.
+ * 
+ * While you do a InjectorHolder.getInjector().inject(Object object) in 1.4 and a
+ * org.apache.wicket.injection.Injector.get().inject(Object object) you can always use this {@link InjectorHolder} to
+ * inject any beans from any place.
  */
 public final class InjectorHolder {
     private static final Logger LOGGER = LoggerFactory.getLogger(InjectorHolder.class);

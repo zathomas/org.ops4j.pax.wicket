@@ -20,7 +20,6 @@ import static org.ops4j.lang.NullArgumentException.validateNotNull;
 import static org.ops4j.pax.wicket.api.Constants.APPLICATION_NAME;
 import static org.osgi.framework.Constants.OBJECTCLASS;
 
-import org.ops4j.pax.wicket.api.PageFactory;
 import org.ops4j.pax.wicket.api.SessionDestroyedListener;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;
@@ -47,19 +46,5 @@ final class TrackingUtil {
         return filter;
     }
 
-    static Filter createAllPageFactoryFilter(BundleContext bundleContext, String applicationName)
-        throws IllegalArgumentException {
-        validateNotNull(bundleContext, "bundleContext");
-        validateNotEmpty(applicationName, "applicationName");
 
-        Filter filter;
-        try {
-            String filterString = "(&(" + APPLICATION_NAME + "=" + applicationName + ")"
-                    + "(" + OBJECTCLASS + "=" + PageFactory.class.getName() + "))";
-            filter = bundleContext.createFilter(filterString);
-        } catch (InvalidSyntaxException e) {
-            throw new IllegalArgumentException("applicationName can not contain '*', '(' or ')' : " + applicationName);
-        }
-        return filter;
-    }
 }

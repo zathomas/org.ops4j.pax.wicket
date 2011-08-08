@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package org.ops4j.pax.wicket.util;
+package org.ops4j.pax.wicket.impl15.util;
 
 import static org.ops4j.lang.NullArgumentException.validateNotEmpty;
 import static org.ops4j.lang.NullArgumentException.validateNotNull;
@@ -29,8 +29,8 @@ import java.util.Hashtable;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebPage;
-import org.ops4j.pax.wicket.api.PageFactory;
 import org.ops4j.pax.wicket.api.PaxWicketMountPoint;
+import org.ops4j.pax.wicket.impl15.api.PageFactory;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceRegistration;
@@ -96,9 +96,9 @@ public abstract class AbstractPageFactory<T extends Page> implements PageFactory
 
     /**
      * Returns the application name.
-     * 
+     *
      * @return The application name.
-     * 
+     *
      * @since 1.0.0
      */
     public final String getApplicationName() {
@@ -109,9 +109,9 @@ public abstract class AbstractPageFactory<T extends Page> implements PageFactory
 
     /**
      * Returns the page name.
-     * 
+     *
      * @return The page name.
-     * 
+     *
      * @since 1.0.0
      */
     public final String getPageName() {
@@ -142,9 +142,9 @@ public abstract class AbstractPageFactory<T extends Page> implements PageFactory
 
     /**
      * Sets the application name.
-     * 
+     *
      * @param applicationName The application name. This argument must not be {@code null} or empty.
-     * 
+     *
      * @throws IllegalArgumentException Thrown if the specified {@code applicationName} is {@code null}.
      * @since 1.0.0
      */
@@ -164,9 +164,9 @@ public abstract class AbstractPageFactory<T extends Page> implements PageFactory
 
     /**
      * Set the page name.
-     * 
+     *
      * @param pageName The page name. This argument must not be {@code null} or empty.
-     * 
+     *
      * @throws IllegalArgumentException Thrown if the specified {@code pageName} arguments are {@code null}.
      * @since 1.0.0
      */

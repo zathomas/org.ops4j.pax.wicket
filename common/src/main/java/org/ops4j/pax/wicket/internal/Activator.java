@@ -35,10 +35,11 @@ public final class Activator implements BundleActivator {
     private static BundleContext bundleContext;
 
     private PaxWicketBundleListener paxWicketBundleListener;
-
     private BundleDelegatingExtensionTracker bundleDelegatingExtensionTracker;
-
     private ProxyTargetLocatorFactoryTracker proxyTargetLocatorFactoryTracker;
+    private ComponentInstantiationRegistratorTracker componentInstantiationRegistratorTracker;
+
+    private PageFactoryInitiatorTracker pageFactoryInitiatorTracker;
 
     public final void start(BundleContext context) throws Exception {
         if (LOGGER.isDebugEnabled()) {
@@ -53,7 +54,15 @@ public final class Activator implements BundleActivator {
         httpTracker = new HttpTracker(context);
         httpTracker.open();
 
-        applicationFactoryTracker = new PaxWicketAppFactoryTracker(context, httpTracker);
+        componentInstantiationRegistratorTracker = new ComponentInstantiationRegistratorTracker(context);
+        componentInstantiationRegistratorTracker.open(true);
+
+        pageFactoryInitiatorTracker = new PageFactoryInitiatorTracker(context);
+        pageFactoryInitiatorTracker.open(true);
+
+        applicationFactoryTracker =
+            new PaxWicketAppFactoryTracker(context, httpTracker, componentInstantiationRegistratorTracker,
+                pageFactoryInitiatorTracker);
         applicationFactoryTracker.open(true);
 
         proxyTargetLocatorFactoryTracker = new ProxyTargetLocatorFactoryTracker(context);
@@ -81,13 +90,17 @@ public final class Activator implements BundleActivator {
 
     public final void stop(BundleContext context) throws Exception {
         context.removeBundleListener(paxWicketBundleListener);
-        httpTracker.close();
         applicationFactoryTracker.close();
+        httpTracker.close();
+        componentInstantiationRegistratorTracker.close();
+        pageFactoryInitiatorTracker.close();
         proxyTargetLocatorFactoryTracker.close();
         bundleDelegatingExtensionTracker.close();
 
-        httpTracker = null;
         applicationFactoryTracker = null;
+        httpTracker = null;
+        componentInstantiationRegistratorTracker = null;
+        pageFactoryInitiatorTracker = null;
         proxyTargetLocatorFactoryTracker = null;
         bundleDelegatingExtensionTracker = null;
         bundleContext = null;

@@ -117,8 +117,8 @@ public class BundleAnalysingComponentInstantiationListener extends AbstractPaxWi
         }
         PaxWicketBean annotation = field.getAnnotation(PaxWicketBean.class);
         List<IProxyTargetLocator> targetLocators =
-            targetLocatorFactoryTracker.getAllProxyTargetLocators(field, getBeanType(field), page, annotation,
-                overwrites);
+            targetLocatorFactoryTracker.getAllProxyTargetLocators(bundleContext, field, getBeanType(field), page,
+                annotation, overwrites);
         if (PaxWicketBean.INJECTION_SOURCE_SPRING.equals(injectionSource)) {
             return findLocatorForInjectionSource(injectionSource, targetLocators);
         }
