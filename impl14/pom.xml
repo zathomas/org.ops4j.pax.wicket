@@ -77,6 +77,7 @@
               org.ops4j.pax.wicket.api;version="${project.version}",
               org.ops4j.pax.wicket.util.serialization.deployment;version="${project.version}",
               org.ops4j.pax.wicket.util.injection;version="${project.version}",
+              org.ops4j.lang;version="${project.version}",
               org.osgi.framework;version="1.4",
               org.osgi.service.*;version="1",
               org.osgi.util.*;version="1",
@@ -109,6 +110,12 @@
     <dependency>
       <groupId>org.ops4j.pax.wicket</groupId>
       <artifactId>org.ops4j.pax.wicket.common</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.ops4j.pax.wicket</groupId>
+      <artifactId>org.ops4j.pax.wicket.api</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>

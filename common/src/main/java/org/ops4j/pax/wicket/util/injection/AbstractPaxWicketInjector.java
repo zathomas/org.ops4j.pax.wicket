@@ -15,21 +15,13 @@
  */
 package org.ops4j.pax.wicket.util.injection;
 
+import net.sf.cglib.proxy.Factory;
+import org.ops4j.pax.wicket.api.PaxWicketBean;
+import org.ops4j.pax.wicket.api.PaxWicketInjector;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-
-import net.sf.cglib.proxy.Factory;
-
-import org.apache.wicket.Component;
-import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.Page;
-import org.apache.wicket.Session;
-import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.protocol.http.WebSession;
-import org.ops4j.pax.wicket.api.PaxWicketBean;
-import org.ops4j.pax.wicket.api.PaxWicketInjector;
 
 public abstract class AbstractPaxWicketInjector implements PaxWicketInjector {
 
@@ -48,11 +40,18 @@ public abstract class AbstractPaxWicketInjector implements PaxWicketInjector {
         return fields;
     }
 
+
     protected boolean isBoundaryClass(Class<?> clazz) {
-        if (clazz.equals(WebPage.class) || clazz.equals(Page.class) || clazz.equals(Panel.class)
-                || clazz.equals(MarkupContainer.class) || clazz.equals(Component.class)
-                || clazz.equals(WebSession.class)
-                || clazz.equals(Session.class) || clazz.equals(Object.class)) {
+        // Check names with reflection to avoid a static dependency
+        String className = clazz.getName();
+        if (className.equals("org.apache.wicket.WebPage")
+                || className.equals("org.apache.wicket.Page")
+                || className.equals("org.apache.wicket.markup.html.panel.Panel")
+                || className.equals("org.apache.wicket.MarkupContainer")
+                || className.equals("org.apache.wicket.Component")
+                || className.equals("org.apache.wicket.protocol.http.WebSession")
+                || className.equals("org.apache.wicket.Session")
+                || clazz.equals(Object.class)) {
             return true;
         }
         return false;

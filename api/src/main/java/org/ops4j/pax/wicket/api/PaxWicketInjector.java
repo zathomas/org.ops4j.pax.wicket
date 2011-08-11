@@ -13,18 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.impl15.api;
+package org.ops4j.pax.wicket.api;
 
-import org.apache.wicket.Page;
-import org.apache.wicket.request.IRequestMapper;
+/**
+ * General PaxWicket injection abstraction. This interface takes any object and tries to inject all
+ * {@link PaxWicketBean} annotations. In that way there is no difference if its a Wicket {@link org.apache.wicket.Component} or not.
+ */
+public interface PaxWicketInjector {
 
-import java.util.List;
+    public void inject(Object toInject);
 
-public interface PageMounter {
-
-    void addMountPoint(String path, Class<? extends Page> pageClass);
-
-    void addMountPoint(String path, IRequestMapper codingStrategy);
-
-    List<MountPointInfo> getMountPoints();
 }

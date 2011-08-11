@@ -15,21 +15,22 @@
  */
 package org.ops4j.pax.wicket.impl15.internal;
 
-import static org.ops4j.lang.NullArgumentException.validateNotNull;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-
 import org.apache.wicket.IPageFactory;
 import org.apache.wicket.Page;
 import org.apache.wicket.WicketRuntimeException;
+import org.apache.wicket.request.component.IRequestablePage;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.ops4j.pax.wicket.impl15.api.PageFactory;
 import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+
+import static org.ops4j.lang.NullArgumentException.validateNotNull;
 
 public final class PaxWicketPageFactory implements IPageFactory {
 
@@ -71,7 +72,7 @@ public final class PaxWicketPageFactory implements IPageFactory {
      *
      * @throws org.apache.wicket.WicketRuntimeException Thrown if the page cannot be constructed
      */
-    public final <C extends Page> Page newPage(Class<C> pageClass) throws IllegalArgumentException {
+    public final <C extends IRequestablePage> IRequestablePage newPage(Class<C> pageClass) throws IllegalArgumentException {
         validateNotNull(pageClass, "pageClass");
 
         return newPage(pageClass, null);
@@ -89,7 +90,7 @@ public final class PaxWicketPageFactory implements IPageFactory {
      *
      * @throws org.apache.wicket.WicketRuntimeException Thrown if the page cannot be constructed
      */
-    public final <C extends Page> Page newPage(Class<C> pageClass, PageParameters parameters)
+    public final <C extends IRequestablePage> IRequestablePage newPage(Class<C> pageClass, PageParameters parameters)
         throws IllegalArgumentException {
         validateNotNull(pageClass, "pageClass");
 
@@ -146,5 +147,4 @@ public final class PaxWicketPageFactory implements IPageFactory {
             contents.remove(pageClass);
         }
     }
-
 }

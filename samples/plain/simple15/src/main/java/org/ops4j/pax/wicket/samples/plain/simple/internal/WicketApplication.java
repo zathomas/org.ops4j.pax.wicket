@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.impl15.api;
+package org.ops4j.pax.wicket.samples.plain.simple.internal;
 
-import org.apache.wicket.Page;
-import org.apache.wicket.request.IRequestMapper;
+import org.apache.wicket.protocol.http.WebApplication;
 
-import java.util.List;
+public class WicketApplication extends WebApplication
+{
+    public WicketApplication() {
+    }
 
-public interface PageMounter {
+    @Override
+    public Class<Homepage> getHomePage() {
+        return Homepage.class;
+    }
 
-    void addMountPoint(String path, Class<? extends Page> pageClass);
-
-    void addMountPoint(String path, IRequestMapper codingStrategy);
-
-    List<MountPointInfo> getMountPoints();
 }

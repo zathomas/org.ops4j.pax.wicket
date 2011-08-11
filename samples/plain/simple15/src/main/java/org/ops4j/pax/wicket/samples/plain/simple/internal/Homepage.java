@@ -13,18 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.ops4j.pax.wicket.impl15.api;
+package org.ops4j.pax.wicket.samples.plain.simple.internal;
 
-import org.apache.wicket.Page;
-import org.apache.wicket.request.IRequestMapper;
+import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
 
-import java.util.List;
+/**
+ * Very simple page providing entry points into various other examples.
+ */
+public class Homepage extends WebPage {
 
-public interface PageMounter {
+    private static final long serialVersionUID = 1L;
 
-    void addMountPoint(String path, Class<? extends Page> pageClass);
-
-    void addMountPoint(String path, IRequestMapper codingStrategy);
-
-    List<MountPointInfo> getMountPoints();
+    public Homepage() {
+        add(new Label("oneComponent", "Welcome to the most simple pax-wicket application"));
+    }
 }

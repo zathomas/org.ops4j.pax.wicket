@@ -179,22 +179,12 @@
   </reporting>
 
   <modules>
-    <!-- OPS4J Pax Wicket Core Modules -->
     <module>common</module>
-    <module>test</module>
-    <!-- OPS4J Pax Wicket Injection Modules -->
-    <module>injection</module>
-    <!-- OPS4J Pax Wicket Bundled Wicket Modules -->
-    <module>bundle14</module>
-    <!-- OPS4J Pax Wicket Version Dependent Implementations -->
+    <module>api</module>
     <module>impl14</module>
     <module>impl15</module>
-    <!-- OPS4J Pax Wicket Karaf Features File -->
-    <module>features</module>
-    <!-- OPS4J Pax Wicket Various Samples -->
+    <!--<module>impl15</module>-->
     <module>samples</module>
-    <!-- OPS4J Pax Wicket Integration Tests -->
-    <module>itests</module>
   </modules>
 
   <dependencyManagement>
@@ -214,6 +204,11 @@
       <dependency>
         <groupId>org.ops4j.pax.wicket</groupId>
         <artifactId>org.ops4j.pax.wicket.impl14</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.ops4j.pax.wicket</groupId>
+        <artifactId>org.ops4j.pax.wicket.impl15</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>

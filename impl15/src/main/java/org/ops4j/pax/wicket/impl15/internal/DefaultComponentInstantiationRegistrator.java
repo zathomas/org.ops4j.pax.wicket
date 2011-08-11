@@ -20,4 +20,7 @@ public class DefaultComponentInstantiationRegistrator implements ComponentInstan
         return true;
     }
 
+    public boolean disposePaxWicketInjectorForApplictation(WebApplication application) {
+        return false;
+    }
 }

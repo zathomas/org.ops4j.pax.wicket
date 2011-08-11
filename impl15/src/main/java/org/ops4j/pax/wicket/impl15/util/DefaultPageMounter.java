@@ -15,15 +15,9 @@
  */
 package org.ops4j.pax.wicket.impl15.util;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.List;
-
 import org.apache.wicket.Page;
-import org.apache.wicket.request.target.coding.BookmarkablePageRequestTargetUrlCodingStrategy;
-import org.apache.wicket.request.target.coding.IRequestTargetUrlCodingStrategy;
+import org.apache.wicket.request.IRequestMapper;
+import org.apache.wicket.request.mapper.MountedMapper;
 import org.ops4j.pax.wicket.api.Constants;
 import org.ops4j.pax.wicket.impl15.api.MountPointInfo;
 import org.ops4j.pax.wicket.impl15.api.PageMounter;
@@ -33,6 +27,8 @@ import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.*;
 
 public class DefaultPageMounter implements PageMounter, ManagedService {
 
@@ -113,10 +109,10 @@ public class DefaultPageMounter implements PageMounter, ManagedService {
      */
     public void addMountPoint(String path, Class<? extends Page> pageClass) {
         LOGGER.debug("Adding mount point for path {}", path);
-        addMountPoint(path, new BookmarkablePageRequestTargetUrlCodingStrategy(path, pageClass, null));
+        addMountPoint(path, new MountedMapper(path, pageClass));
     }
 
-    public void addMountPoint(String path, IRequestTargetUrlCodingStrategy codingStrategy) {
+    public void addMountPoint(String path, IRequestMapper codingStrategy) {
         LOGGER.debug("Adding mount point for path {}", path);
         MountPointInfo info = new DefaultMountPointInfo(path, codingStrategy);
         mountPoints.add(info);
@@ -128,9 +124,9 @@ public class DefaultPageMounter implements PageMounter, ManagedService {
 
     private static class DefaultMountPointInfo implements MountPointInfo {
         private final String path;
-        private final IRequestTargetUrlCodingStrategy codingStrategy;
+        private final IRequestMapper codingStrategy;
 
-        private DefaultMountPointInfo(String path, IRequestTargetUrlCodingStrategy codingStrategy) {
+        private DefaultMountPointInfo(String path, IRequestMapper codingStrategy) {
             // validateNotEmpty(path, "path");
             // validateNotNull(codingStrategy, "codingStrategy");
             this.path = path;
@@ -141,7 +137,7 @@ public class DefaultPageMounter implements PageMounter, ManagedService {
             return path;
         }
 
-        public final IRequestTargetUrlCodingStrategy getCodingStrategy() {
+        public final IRequestMapper getMapper() {
             return codingStrategy;
         }
     }

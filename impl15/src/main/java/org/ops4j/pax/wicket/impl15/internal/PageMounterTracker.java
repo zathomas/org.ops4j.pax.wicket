@@ -15,13 +15,9 @@
  */
 package org.ops4j.pax.wicket.impl15.internal;
 
-import static java.lang.String.format;
-import static org.osgi.framework.Constants.OBJECTCLASS;
-
-import java.util.List;
-
+import org.apache.wicket.Application;
 import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.request.target.coding.IRequestTargetUrlCodingStrategy;
+import org.apache.wicket.request.IRequestMapper;
 import org.ops4j.pax.wicket.api.Constants;
 import org.ops4j.pax.wicket.impl15.api.MountPointInfo;
 import org.ops4j.pax.wicket.impl15.api.PageMounter;
@@ -32,6 +28,11 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+
+import static java.lang.String.format;
+import static org.osgi.framework.Constants.OBJECTCLASS;
 
 public final class PageMounterTracker extends ServiceTracker {
 
@@ -69,12 +70,12 @@ public final class PageMounterTracker extends ServiceTracker {
 
         List<MountPointInfo> infos = mounter.getMountPoints();
         for (MountPointInfo info : infos) {
-            IRequestTargetUrlCodingStrategy strategy = info.getCodingStrategy();
+            IRequestMapper strategy = info.getMapper();
             LOGGER.trace("Make sure that path {} is clear before trying to remount", info.getPath());
-            application.unmount(info.getPath());
-            LOGGER.trace("Trying to mount {} with {}", info.getPath(), info.getCodingStrategy().toString());
+            application.addIgnoreMountPath(info.getPath());
+            LOGGER.trace("Trying to mount {} with {}", info.getPath(), info.getMapper().toString());
             application.mount(strategy);
-            LOGGER.info("Mounted {} with {}", info.getPath(), info.getCodingStrategy().toString());
+            LOGGER.info("Mounted {} with {}", info.getPath(), info.getMapper().toString());
         }
 
         return mounter;
@@ -84,11 +85,11 @@ public final class PageMounterTracker extends ServiceTracker {
     public final void removedService(ServiceReference reference, Object mounter) {
         PageMounter pageMounter = (PageMounter) mounter;
         List<MountPointInfo> infos = pageMounter.getMountPoints();
+        Application application = Application.get();
         for (MountPointInfo info : infos) {
-            LOGGER.trace("Trying to mount {} with {}", info.getPath(), info.getCodingStrategy().toString());
-            String path = info.getPath();
-            application.unmount(path);
-            LOGGER.info("Unmounted {} with {}", info.getPath(), info.getCodingStrategy().toString());
+            LOGGER.trace("Trying to mount {} with {}", info.getPath(), info.getMapper().toString());
+            application.getRootRequestMapperAsCompound().remove(info.getMapper());
+            LOGGER.info("Unmounted {} with {}", info.getPath(), info.getMapper().toString());
         }
 
         super.removedService(reference, pageMounter);

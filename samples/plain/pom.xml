@@ -15,7 +15,8 @@
   <name>OPS4J Pax Wicket :: Samples :: Plain :: Parent</name>
 
   <modules>
-    <module>simple</module>
+    <module>simple14</module>
+    <module>simple15</module>
   </modules>
 </project>
 
