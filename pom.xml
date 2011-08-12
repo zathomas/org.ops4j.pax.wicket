@@ -300,13 +300,13 @@
         <groupId>org.osgi</groupId>
         <artifactId>org.osgi.compendium</artifactId>
         <version>${org.osgi.version}</version>
-        <scope>provided</scope>
+        <!--<scope>provided</scope>-->
       </dependency>
       <dependency>
         <groupId>org.osgi</groupId>
         <artifactId>org.osgi.core</artifactId>
         <version>${org.osgi.version}</version>
-        <scope>provided</scope>
+        <!--<scope>provided</scope>-->
       </dependency>
       <dependency>
         <groupId>org.apache.aries.blueprint</groupId>
@@ -333,7 +333,7 @@
         <groupId>org.ops4j.pax.logging</groupId>
         <artifactId>pax-logging-api</artifactId>
         <version>${pax.logging.version}</version>
-        <scope>provided</scope>
+        <!--<scope>provided</scope>-->
       </dependency>
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
@@ -434,7 +434,7 @@
         <groupId>org.ops4j.pax.logging</groupId>
         <artifactId>pax-logging-service</artifactId>
         <version>${pax.logging.version}</version>
-        <scope>provided</scope>
+        <!--<scope>provided</scope>-->
       </dependency>
       <dependency>
         <groupId>org.apache.servicemix.bundles</groupId>
@@ -530,7 +530,7 @@
         <groupId>org.apache.wicket</groupId>
         <artifactId>wicket</artifactId>
         <version>${impl14.wicket.version}</version>
-        <scope>provided</scope>
+        <!--<scope>provided</scope>-->
         <exclusions>
           <exclusion>
             <groupId>org.slf4j</groupId>
@@ -542,7 +542,7 @@
         <groupId>org.apache.wicket</groupId>
         <artifactId>wicket-extensions</artifactId>
         <version>${impl14.wicket.version}</version>
-        <scope>provided</scope>
+        <!--<scope>provided</scope>-->
         <exclusions>
           <exclusion>
             <groupId>org.slf4j</groupId>
@@ -554,7 +554,7 @@
         <groupId>org.apache.wicket</groupId>
         <artifactId>wicket-devutils</artifactId>
         <version>${impl14.wicket.version}</version>
-        <scope>provided</scope>
+        <!--<scope>provided</scope>-->
         <exclusions>
           <exclusion>
             <groupId>org.slf4j</groupId>
@@ -577,7 +577,7 @@
         <groupId>org.apache.wicket</groupId>
         <artifactId>wicket</artifactId>
         <version>${impl14.wicket.version}</version>
-        <scope>provided</scope>
+        <!--<scope>provided</scope>-->
         <classifier>sources</classifier>
         <exclusions>
           <exclusion>
@@ -590,7 +590,7 @@
         <groupId>org.apache.wicket</groupId>
         <artifactId>wicket-extensions</artifactId>
         <version>${impl14.wicket.version}</version>
-        <scope>provided</scope>
+        <!--<scope>provided</scope>-->
         <classifier>sources</classifier>
         <exclusions>
           <exclusion>
@@ -603,7 +603,7 @@
         <groupId>org.apache.wicket</groupId>
         <artifactId>wicket-devutils</artifactId>
         <version>${impl14.wicket.version}</version>
-        <scope>provided</scope>
+        <!--<scope>provided</scope>-->
         <classifier>sources</classifier>
         <exclusions>
           <exclusion>

@@ -78,13 +78,13 @@
     <dependency>
       <groupId>org.osgi</groupId>
       <artifactId>org.osgi.core</artifactId>
-      <scope>provided</scope>
+      <!--<scope>provided</scope>-->
     </dependency>
     <!-- We need wicket and pax-wicket references for this sample; simply add the core wicket bundle. -->
     <dependency>
       <groupId>org.ops4j.pax.wicket</groupId>
       <artifactId>org.ops4j.pax.wicket.impl15</artifactId>
-      <scope>provided</scope>
+      <!--<scope>provided</scope>-->
     </dependency>
   </dependencies>
 </project>

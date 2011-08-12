@@ -18,7 +18,7 @@
   </modules>
 
   <properties>
-    <org.ops4j.pax.logging.DefaultServiceLog.level>WARN</org.ops4j.pax.logging.DefaultServiceLog.level>
+    <org.ops4j.pax.logging.DefaultServiceLog.level>DEBUG</org.ops4j.pax.logging.DefaultServiceLog.level>
     <felix.log.level>1</felix.log.level>
   </properties>
 
@@ -27,17 +27,25 @@
       <plugin>
         <groupId>org.ops4j</groupId>
         <artifactId>maven-pax-plugin</artifactId>
+        <version>1.6-SNAPSHOT</version>
         <configuration>
           <provision>
             <param>--vmOptions=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005</param>
             <param>--platform=felix</param>
             <param>--workingDirectory=target/runner</param>
           </provision>
-          <noDependencies>true</noDependencies>
+          <noDependencies>false</noDependencies>
         </configuration>
       </plugin>
     </plugins>
   </build>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>sonatype</id>
+      <url>http://oss.sonatype.org/content/repositories/ops4j-snapshots</url>
+    </pluginRepository>
+  </pluginRepositories>
 
 </project>
 

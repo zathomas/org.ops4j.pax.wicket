@@ -111,13 +111,13 @@
       <groupId>org.ops4j.pax.wicket</groupId>
       <artifactId>org.ops4j.pax.wicket.common</artifactId>
       <version>${project.version}</version>
-      <scope>provided</scope>
+      <!--<scope>provided</scope>-->
     </dependency>
     <dependency>
       <groupId>org.ops4j.pax.wicket</groupId>
       <artifactId>org.ops4j.pax.wicket.api</artifactId>
       <version>${project.version}</version>
-      <scope>provided</scope>
+      <!--<scope>provided</scope>-->
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -133,17 +133,17 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>${slf4j.version}</version>
-      <scope>provided</scope>
+      <!--<scope>provided</scope>-->
     </dependency>
     <dependency>
       <groupId>org.osgi</groupId>
       <artifactId>org.osgi.core</artifactId>
-      <scope>provided</scope>
+      <!--<scope>provided</scope>-->
     </dependency>
     <dependency>
       <groupId>org.osgi</groupId>
       <artifactId>org.osgi.compendium</artifactId>
-      <scope>provided</scope>
+      <!--<scope>provided</scope>-->
     </dependency>
   </dependencies>
 </project>
