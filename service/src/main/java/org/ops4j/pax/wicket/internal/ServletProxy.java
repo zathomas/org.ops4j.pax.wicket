@@ -21,6 +21,7 @@ import static org.ops4j.lang.NullArgumentException.validateNotNull;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.Properties;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
@@ -41,7 +42,11 @@ public class ServletProxy {
 
     static Servlet newServletProxy(PaxWicketApplicationFactory applicationFactory) {
         ServletInvocationHandler ih = new ServletInvocationHandler(applicationFactory);
-        return newServletProxy(ih);
+        Properties props = new Properties();
+        props.put("sling.servlet.paths", applicationFactory.getMountPoint());
+        Servlet servlet = newServletProxy(ih);
+        applicationFactory.getBundleContext().registerService(Servlet.class.getName(), servlet, props);
+        return servlet;
     }
 
     private static Servlet newServletProxy(ServletInvocationHandler ih) {
