@@ -21,5 +21,34 @@
     </head>
     <body>
         <span wicket:id="oneComponent" />
+        <!-- A Common Data Table -->
+	<table>
+		<thead>
+			<tr>
+				<th>Visit</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr wicket:id="visits">
+				<!-- For a given list item, render the firstName label. -->
+				<td wicket:id="visit">[Visit]</td>
+			</tr>
+		</tbody>
+	</table>
+
+    <table>
+		<thead>
+			<tr>
+				<th>Service</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr wicket:id="services">
+				<!-- For a given list item, render the firstName label. -->
+				<td wicket:id="service">[Service]</td>
+			</tr>
+		</tbody>
+	</table>
+    <p>Zach's email address is <span wicket:id="emailAddress">[email addy]</span></p>
     </body>
 </html>

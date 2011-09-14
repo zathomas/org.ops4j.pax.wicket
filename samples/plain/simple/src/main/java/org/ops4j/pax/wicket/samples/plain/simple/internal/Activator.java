@@ -21,16 +21,23 @@ import org.osgi.framework.BundleContext;
 
 public class Activator implements BundleActivator {
 
-    private DefaultWebApplicationFactory applicationFactory;
+  private static BundleContext bundleContext;
 
-    public void start(BundleContext context) throws Exception {
-        applicationFactory =
-            new DefaultWebApplicationFactory(context, WicketApplication.class, "plain.simple", "plain/simple");
-        applicationFactory.register();
-    }
+  private DefaultWebApplicationFactory applicationFactory;
 
-    public void stop(BundleContext context) throws Exception {
-        applicationFactory.dispose();
-    }
+  public void start(BundleContext context) throws Exception {
+    applicationFactory =
+      new DefaultWebApplicationFactory(context, WicketApplication.class, "plain.simple", "plain/simple");
+    applicationFactory.register();
+    this.bundleContext = context;
+  }
+
+  public void stop(BundleContext context) throws Exception {
+    applicationFactory.dispose();
+  }
+
+  public static BundleContext getBundleContext() {
+    return bundleContext;
+  }
 
 }

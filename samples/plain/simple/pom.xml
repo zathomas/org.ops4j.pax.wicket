@@ -17,63 +17,79 @@
   limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
-  <parent>
-    <groupId>org.ops4j.pax.wicket.samples.plain</groupId>
-    <artifactId>plain</artifactId>
+    <parent>
+        <groupId>org.ops4j.pax.wicket.samples.plain</groupId>
+        <artifactId>plain</artifactId>
+        <version>0.8.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>org.ops4j.pax.wicket.samples.plain.simple</artifactId>
     <version>0.8.0-SNAPSHOT</version>
-  </parent>
-
-  <modelVersion>4.0.0</modelVersion>
-
-  <artifactId>org.ops4j.pax.wicket.samples.plain.simple</artifactId>
-  <version>0.8.0-SNAPSHOT</version>
-  <packaging>bundle</packaging>
-  <name>OPS4J Pax Wicket :: Samples :: Plain :: Simple</name>
-
-  <description>
+    <packaging>bundle</packaging>
+    <name>OPS4J Pax Wicket :: Samples :: Plain :: Simple</name>
+    <description>
     This project provides the most simple introduction into pax-wicket.
   </description>
-  <profiles>
-      <profile>
-        <id>redeploy</id>
-        <build>
-         <plugins>
-           <plugin>
-            <groupId>org.apache.sling</groupId>
-            <artifactId>maven-sling-plugin</artifactId>
-            <version>2.0.4-incubator</version>
-            <executions>
-              <execution>
-                <id>install-bundle</id>
-                <goals>
-                  <goal>install</goal>
-                </goals>
-              </execution>
-            </executions>
-           </plugin>
-         </plugins>
-        </build>
-      </profile>
-  </profiles>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <!-- The bundle activator is only required if we do the things by hand. -->
-            <Bundle-Activator>
+    <profiles>
+        <profile>
+            <id>redeploy</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.sling</groupId>
+                        <artifactId>maven-sling-plugin</artifactId>
+                        <version>2.0.4-incubator</version>
+                        <executions>
+                            <execution>
+                                <id>install-bundle</id>
+                                <goals>
+                                    <goal>install</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-scr-plugin</artifactId>
+                <version>1.7.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-simple</artifactId>
+                        <version>1.5.2</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>generate-scr-scrdescriptor</id>
+                        <goals>
+                            <goal>scr</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <!-- The bundle activator is only required if we do the things by hand. -->
+                        <Bundle-Activator>
               org.ops4j.pax.wicket.samples.plain.simple.internal.Activator
             </Bundle-Activator>
-            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Import-Package>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Import-Package>
               org.apache.wicket,
               org.apache.wicket.markup.html,
               org.apache.wicket.markup.html.basic,
+              org.apache.wicket.markup.html.list,
               org.apache.wicket.protocol.http,
               org.ops4j.pax.wicket.api,
               org.ops4j.pax.wicket.util,
@@ -87,27 +103,64 @@
               org.apache.wicket.util.file,
               org.apache.wicket.request,
               javax.servlet.http,
-              org.apache.wicket.ajax
+              org.apache.wicket.ajax,
+              com.mongodb,
+              com.mongodb.gridfs,
+              com.mongodb.io,
+              com.mongodb.util,
+              org.bson,
+              org.bson.io,
+              org.bson.types,
+              org.bson.util,
+              org.osgi.service.event,
+              org.sakaiproject.nakamura.api.lite,
+              org.sakaiproject.nakamura.api.lite.authorizable,
+              org.sakaiproject.nakamura.api.lite.accesscontrol,
+              org.slf4j
             </Import-Package>
-          </instructions>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
-  <dependencies>
-    <!-- Since we're using OSGi direclty we need a reference to those classes -->
-    <dependency>
-      <groupId>org.osgi</groupId>
-      <artifactId>org.osgi.core</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <!-- We need wicket and pax-wicket references for this sample; simply add the core wicket bundle. -->
-    <dependency>
-      <groupId>org.ops4j.pax.wicket</groupId>
-      <artifactId>org.ops4j.pax.wicket.service</artifactId>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <!-- Since we're using OSGi direclty we need a reference to those classes -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- We need wicket and pax-wicket references for this sample; simply add the core wicket bundle. -->
+        <dependency>
+            <groupId>org.ops4j.pax.wicket</groupId>
+            <artifactId>org.ops4j.pax.wicket.service</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.sakaiproject.nakamura</groupId>
+            <artifactId>org.sakaiproject.nakamura.core</artifactId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.5.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.mongodb</artifactId>
+            <version>2.3_2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.scr.annotations</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+    </dependencies>
 </project>
-
